@@ -2,6 +2,48 @@
 
 Simple Package Template
 
+## About
+
+A template for NPM libraries with standard technologies to handle common library development scenarios.
+
+Designed for TypeScript NPM libraries.
+
+- developing
+- linting
+- styling
+- testing
+- documenting
+- publishing
+
+## Standard Technologies
+
+- [GitHub](https://github.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [npm](https://www.npmjs.com/)
+- [node](https://nodejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [jest](https://jestjs.io/)
+- [prettier](https://prettier.io/)
+
+Eventual
+
+- [eslint](https://eslint.org/)
+- [api-extractor](https://api-extractor.com/)
+- api-documenter
+- api-extractor-run
+- api-documenter-run
+- GitHub actions
+
+note: the template will need to be updated as technology changes.
+
+## Technology and Design Considerations
+
+Technologies were chosen based on ubiquity and commitment to long term support.
+
+Widely deployed technologies with long term support are more likely to remain stable platforms for the future.
+
+Adopting every new technology that has some small benefit comes with a cost. It's preferable to pick good standards that will remain relevant into the future so that developers can focus on building new things instead of selecting and configuring tools. Standard widely adopted and well supported technologies are more likely to: have good support for common scenarios, have significant documentation, work together, and evolve together.
+
 ## Deploy
 
 1. install
@@ -13,7 +55,7 @@ Simple Package Template
 1. test
     > npm run test
 
-    - make sure all tests pacc
+    - make sure all tests pass
 
 1. patch
     > npm version patch
@@ -24,7 +66,7 @@ Simple Package Template
 
     > npm publish
 
-1. commit 
+1. commit
     > git commit -am "new version"
 
 1. push
