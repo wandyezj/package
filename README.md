@@ -36,6 +36,17 @@ Eventual
 
 note: the template will need to be updated as technology changes.
 
+## Visual Studio Code Extensions
+
+- Bracket Pair Colorizer
+    - Makes it easier to find bracket pairs
+- ESLint
+    - config: `.eslintrc.json`
+- Prettier
+    - config: `.prettierrc.json`
+- markdownlint
+    - config: `.markdownlint.json`
+
 ## Features
 
 - Visual Studio Code F5 Debugging for jest tests.
@@ -57,17 +68,21 @@ Adopting every new technology that has some small benefit comes with a cost. It'
 ## Deploy
 
 1. install
+
     > npm install
 
 1. build
+
     > npm run build
 
 1. test
+
     > npm run test
 
     - make sure all tests pass
 
 1. patch
+
     > npm version patch
 
 1. update [versions](versions)
@@ -77,6 +92,7 @@ Adopting every new technology that has some small benefit comes with a cost. It'
     > npm publish
 
 1. commit
+
     > git commit -am "new version"
 
 1. push

@@ -1,4 +1,4 @@
-import {f} from "./external"
+import { f } from "./external";
 test("basic", () => {
     const actual = f();
     const expected = "hello";

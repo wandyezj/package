@@ -1,1 +1,1 @@
-export {f} from "../src/index" 
+export { f } from "../src/index";

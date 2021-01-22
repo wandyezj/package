@@ -1,4 +1,8 @@
 {
     "cSpell.words": [
-    ]
+        "linebreak",
+        "markdownlint",
+        "prettierrc"
+    ],
+    "files.eol": "\n"
 }
