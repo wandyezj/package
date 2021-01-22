@@ -6,7 +6,7 @@
     "scripts": {
         "build": "./node_modules/.bin/tsc",
         "test": "jest --no-cache",
-        "prettier": "./node_modules/.bin/prettier --config .prettierrc.json --write \"@(src|test)/**/*.@(ts|html|css)\"",
+        "prettier": "./node_modules/.bin/prettier --config .prettierrc.json --write \"@(src|test)/**/*.@(ts|js|md|html|css)\"",
         "eslint": "./node_modules/.bin/eslint src/ test/",
         "eslint-fix": "./node_modules/.bin/eslint --fix src/ test/"
     },
@@ -28,8 +28,6 @@
         "ts-jest": "^26.4.4",
         "eslint": "^7.18.0",
         "@typescript-eslint/eslint-plugin": "^4.14.0",
-        "@typescript-eslint/parser": "^4.14.0",
-        "eslint-config-prettier": "^7.2.0",
-        "eslint-plugin-prettier": "^3.3.1"
+        "@typescript-eslint/parser": "^4.14.0"
     }
 }

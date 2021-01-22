@@ -24,10 +24,10 @@ Designed for TypeScript NPM libraries.
 - [TypeScript](https://www.typescriptlang.org/)
 - [jest](https://jestjs.io/)
 - [prettier](https://prettier.io/)
+- [eslint](https://eslint.org/)
 
 Eventual
 
-- [eslint](https://eslint.org/)
 - [api-extractor](https://api-extractor.com/)
 - api-documenter
 - api-extractor-run
@@ -39,7 +39,7 @@ note: the template will need to be updated as technology changes.
 ## Visual Studio Code Extensions
 
 - Bracket Pair Colorizer
-    - Makes it easier to find bracket pairs
+    - Makes it easier to identify bracket pairs
 - ESLint
     - config: `.eslintrc.json`
 - Prettier

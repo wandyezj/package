@@ -5,8 +5,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -14,26 +13,23 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
-        "prettier"
+        "@typescript-eslint"
     ],
     "rules": {
         "indent": [
-            "error",
+            "warn",
             4
         ],
         "linebreak-style": [
-            "error",
+            "warn",
             "unix"
         ],
         "quotes": [
-            "error",
+            "warn",
             "double"
         ],
         "semi": [
-            "error",
-            "always"
-        ],
-        "prettier/prettier": "error"
+            "warn"
+        ]
     }
 }
