@@ -43,9 +43,11 @@ note: the template will need to be updated as technology changes.
 - ESLint
     - config: `.eslintrc.json`
 - Prettier
-    - config: `.prettierrc.json`
+    - config: `config\.prettierrc.json`
+    - requires command line option `--config`
 - markdownlint
-    - config: `.markdownlint.json`
+    - config: `config\.markdownlint.json`
+    - requires .vscode\settings.json extends
 
 ## Features
 
@@ -64,39 +66,6 @@ Adopting every new technology that has some small benefit comes with a cost. It'
 - Reduce Attack Surface Area, everyone is responsible to security, do not invent or implement your own hashing or cryptographic algorithms leave these things to experts
 - Privacy do not send any data, do not cache or store any data
 - Avoid Semantic versioning, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
-
-## Deploy
-
-1. install
-
-    > npm install
-
-1. build
-
-    > npm run build
-
-1. test
-
-    > npm run test
-
-    - make sure all tests pass
-
-1. patch
-
-    > npm version patch
-
-1. update [versions](versions)
-
-1. publish
-
-    > npm publish
-
-1. commit
-
-    > git commit -am "new version"
-
-1. push
-    > git push
 
 ## Versions
 

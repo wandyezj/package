@@ -4,5 +4,8 @@
         "markdownlint",
         "prettierrc"
     ],
-    "files.eol": "\n"
+    "files.eol": "\n",
+    "markdownlint.config": {
+        "extends": "./config/.markdownlint.json",
+    }
 }
