@@ -1,11 +1,33 @@
 {
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "cSpell.words": [
         "linebreak",
         "markdownlint",
         "prettierrc"
     ],
     "files.eol": "\n",
+    "editor.renderWhitespace": "all",
     "markdownlint.config": {
         "extends": "./config/.markdownlint.json",
-    }
+    },
+    "eslint.options": {
+        "configFile":"config/.eslintrc.json",
+        "resolvePluginsRelativeTo":"${workspaceFolder}"
+
+    },
+
 }

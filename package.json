@@ -7,8 +7,8 @@
         "build": "./node_modules/.bin/tsc",
         "test": "jest --no-cache --config=./config/jest.config.js",
         "prettier": "./node_modules/.bin/prettier --config ./config/.prettierrc.json --write \"@(src|test)/**/*.@(ts|js|md|html|css)\"",
-        "eslint": "./node_modules/.bin/eslint src/ test/",
-        "eslint-fix": "./node_modules/.bin/eslint --fix src/ test/"
+        "eslint": "./node_modules/.bin/eslint -c ./config/.eslintrc.json --no-eslintrc src/ test/",
+        "eslint-fix": "./node_modules/.bin/eslint -c ./config/.eslintrc.json --no-eslintrc --fix src/ test/"
     },
     "repository": {
         "type": "git",

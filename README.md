@@ -67,6 +67,11 @@ Adopting every new technology that has some small benefit comes with a cost. It'
 - Privacy do not send any data, do not cache or store any data
 - Avoid Semantic versioning, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
 
+Move all possible configs under the config folder:
+
+- have clarity where configs exist
+- have clarity on what calls the configs
+
 ## Versions
 
 Description of changes between versions
