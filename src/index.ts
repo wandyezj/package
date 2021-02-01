@@ -1,3 +1,3 @@
-export function f() {
- return 'hello';
-}
+import { f } from "./f";
+
+export { f };
