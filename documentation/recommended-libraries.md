@@ -2,7 +2,7 @@
 
 Libraries for solving common problems
 
-- [jsonc parser](https://www.npmjs.com/package/jsonc-parser)
+- [jsonc-parser](https://www.npmjs.com/package/jsonc-parser)
     - parse JSON with comments using `stripComments`
 
 - [JSDOM](https://www.npmjs.com/package/jsdom)
