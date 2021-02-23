@@ -44,7 +44,7 @@ note: the template will need to be updated as technology changes.
 - ESLint
     - config: `.eslintrc.json`
 - Prettier
-    - config: `config\.prettierrc.json`
+    - config: `config\prettier.json`
     - requires command line option `--config`
 - markdownlint
     - config: `config\.markdownlint.json`

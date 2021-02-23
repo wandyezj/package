@@ -21,13 +21,14 @@
         "compile": "./node_modules/.bin/tsc --project ./tsconfig.json",
         "test": "jest --no-cache --config=./config/jest.config.js",
         "start": "./node_modules/.bin/ts-node test/main.ts",
-        "prettier": "./node_modules/.bin/prettier --config ./config/.prettierrc.json --write \"@(src|test)/**/*.@(ts|js|md|html|css)\"",
+        "prettier": "./node_modules/.bin/prettier --config ./config/prettier.json --write \"@(src|test)/**/*.@(ts|js|md|html|css)\"",
         "eslint": "./node_modules/.bin/eslint -c ./config/.eslintrc.json --no-eslintrc src/ test/",
         "eslint-fix": "./node_modules/.bin/eslint -c ./config/.eslintrc.json --no-eslintrc --fix src/ test/",
         "api-extractor": "./node_modules/.bin/api-extractor",
         "doc": "npm run doc-extract && npm run doc-document",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
-        "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc"
+        "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
+        "check":"./node_modules/.bin/ts-node test/check.ts"
     },
     "repository": {
         "type": "git",
