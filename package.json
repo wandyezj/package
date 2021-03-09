@@ -28,7 +28,7 @@
         "doc": "npm run doc-extract && npm run doc-document",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
-        "check":"./node_modules/.bin/ts-node test/check.ts"
+        "check": "./node_modules/.bin/ts-node test/check.ts"
     },
     "repository": {
         "type": "git",
@@ -44,6 +44,7 @@
     "devDependencies": {
         "@microsoft/api-documenter": "^7.12.6",
         "@microsoft/api-extractor": "^7.13.0",
+        "@types/jest": "^26.0.20",
         "@typescript-eslint/eslint-plugin": "^4.14.0",
         "@typescript-eslint/parser": "^4.14.0",
         "eslint": "^7.18.0",
