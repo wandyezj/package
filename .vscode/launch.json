@@ -3,11 +3,13 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    // Select which to use in the Run and Debug
     "configurations": [
     {
+      "name": "Jest",
       "type": "node",
       "request": "launch",
-      "name": "Jest watch current file",
+      "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "program": "${workspaceFolder}/node_modules/jest/bin/jest",
       "args": [
         "${fileBasename}",
@@ -18,6 +20,25 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+        "name": "ts-node",
+        "type": "node",
+        "request": "launch",
+        "runtimeExecutable": "node",
+        "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
+  
+        "args": ["${file}"],
+        
+        "cwd": "${fileDirname}",
+        "internalConsoleOptions": "openOnSessionStart",
+        "skipFiles": ["<node_internals>/**", "node_modules/**"],
+        "resolveSourceMapLocations": [
+            "${workspaceFolder}/**",
+            "!**/node_modules/**"
+        ]
+
     }
+
     ]
 }
