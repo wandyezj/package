@@ -1,4 +1,7 @@
 {
+    "files.eol": "\n",
+    "editor.renderWhitespace": "all",
+
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
@@ -14,20 +17,17 @@
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.configPath": "config/prettier.json",
+
     "files.associations": { "*.json": "jsonc" },
-    "cSpell.words": [
-        "linebreak",
-        "markdownlint",
-        "prettierrc"
-    ],
-    "files.eol": "\n",
-    "editor.renderWhitespace": "all",
+
+    "prettier.configPath": "config/prettier.json",
+
     "markdownlint.config": {
-        "extends": "./config/.markdownlint.json",
+        "extends": "./config/.markdownlint.json"
     },
     "eslint.options": {
-        "configFile":"config/.eslintrc.json",
-        "resolvePluginsRelativeTo":"${workspaceFolder}"
+        "configFile": "config/.eslintrc.json",
+        "resolvePluginsRelativeTo": "${workspaceFolder}"
     },
+    "cSpell.words": ["linebreak", "markdownlint", "prettierrc"]
 }
