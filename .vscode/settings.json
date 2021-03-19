@@ -14,6 +14,7 @@
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "prettier.configPath": "config/prettier.json",
     "files.associations": { "*.json": "jsonc" },
     "cSpell.words": [
         "linebreak",
@@ -28,7 +29,5 @@
     "eslint.options": {
         "configFile":"config/.eslintrc.json",
         "resolvePluginsRelativeTo":"${workspaceFolder}"
-
     },
-
 }
