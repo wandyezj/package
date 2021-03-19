@@ -22,12 +22,15 @@
 
     "prettier.configPath": "config/prettier.json",
 
-    "markdownlint.config": {
-        "extends": "./config/.markdownlint.json"
-    },
+
     "eslint.options": {
         "configFile": "config/.eslintrc.json",
         "resolvePluginsRelativeTo": "${workspaceFolder}"
     },
+
+    "markdownlint.config": {
+        "extends": "./config/.markdownlint.json"
+    },
+    
     "cSpell.words": ["linebreak", "markdownlint", "prettierrc"]
 }

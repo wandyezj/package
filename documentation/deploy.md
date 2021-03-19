@@ -18,7 +18,7 @@
 
     > npm version patch
 
-1. update [versions](../README.md/#versions)
+1. update [Changelog](../CHANGELOG.md)
 
 1. publish
 
