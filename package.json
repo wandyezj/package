@@ -15,7 +15,7 @@
     },
     "scripts": {
         "build": "npm run style && npm run lint && npm run clean && npm run compile && npm run doc",
-        "clean": "rmdir /S /Q dist",
+        "clean": "if exist dist (rmdir /S /Q dist)",
         "style": "npm run prettier",
         "lint": "npm run eslint",
         "lint-fix": "npm run eslint-fix",

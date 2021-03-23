@@ -24,6 +24,18 @@ Benefits:
 Windows cmd does not need the extension on the tool to work. `cmd.exe` has a precedence list for executing items in the path without the extension's presence by looking for the command without the extension (i.e. hello will call hello.exe, hello.bat, hello.cmd, etc.. in that order as it searches the path).
 
 
+## eslint disables
+
+[eslint disabling rules](https://eslint.org/docs/user-guide/configuring/rules#disabling-rules)
+
+```typescript
+
+// disables for the next line
+// eslint-disable-next-line no-use-before-define
+
+// eslint-disable-line @typescript-eslint/triple-slash-reference
+```
+
 ## Technology and Design Considerations
 
 Technologies were chosen based on ubiquity and commitment to long term support.
