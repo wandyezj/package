@@ -28,7 +28,7 @@
         "doc": "npm run doc-extract && npm run doc-document",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
-        "check": "./node_modules/.bin/ts-node test/check.ts",
+        "check": "./node_modules/.bin/ts-node scripts/check.ts",
         "start": "./node_modules/.bin/ts-node test/main.ts"
     },
     "repository": {

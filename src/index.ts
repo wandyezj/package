@@ -1,3 +1,1 @@
-import { f } from "./f";
-
-export { f };
+export { f } from "./f";
