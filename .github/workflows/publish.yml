@@ -18,7 +18,13 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14.x'
-    - run: npm ci
-    - run: npm run check --if-present
-    - run: npm run build --if-present
-    - run: npm test --if-present
+    - name: Clean Install
+      run: npm ci
+    - name: Check
+      env:
+        BRANCH_NAME: ${{ replace(github.head_ref, "refs/heads/", "") }}
+      run: npm run check --if-present
+    - name: Build
+      run: npm run build --if-present
+    - name: Test
+      run: npm test --if-present
