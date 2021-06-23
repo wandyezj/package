@@ -14,6 +14,7 @@
         "test": "./test"
     },
     "scripts": {
+        "prepack": "npm run build",
         "build": "npm run style && npm run lint && npm run clean && npm run compile && npm run doc",
         "clean": "if exist dist (rmdir /S /Q dist)",
         "style": "npm run prettier",
