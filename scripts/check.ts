@@ -11,6 +11,7 @@ interface Environment {
     GITHUB_ACTOR?: string;
     GITHUB_EVENT_NAME?: string;
     GITHUB_HEAD_REF?: string;
+    GITHUB_WORKSPACE?: string;
 }
 
 function getEnvironmentVariables(): Environment {
@@ -18,7 +19,8 @@ function getEnvironmentVariables(): Environment {
         "GITHUB_REF",
         "GITHUB_ACTOR",
         "GITHUB_EVENT_NAME",
-        "GITHUB_HEAD_REF"
+        "GITHUB_HEAD_REF",
+        "GITHUB_WORKSPACE",
     ];
 
     const o: Environment = {};
