@@ -1,7 +1,7 @@
-import { f } from "../src/index";
+import { hello } from "../src/index";
 
 test("basic", () => {
-    const actual = f();
+    const actual = hello();
     const expected = "hello";
     expect(actual).toBe(expected);
 });
