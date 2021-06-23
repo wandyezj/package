@@ -22,7 +22,7 @@ jobs:
       run: npm ci
     - name: Check
       env:
-        BRANCH_NAME: ${{ replace(github.head_ref, "refs/heads/", "") }}
+        BRANCH_NAME: ${{ github.head_ref }}
       run: npm run check --if-present
     - name: Build
       run: npm run build --if-present
