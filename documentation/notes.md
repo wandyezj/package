@@ -57,6 +57,15 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 // eslint-disable-line @typescript-eslint/triple-slash-reference
 ```
 
+## prettier disables
+
+[prettier ignore code](https://prettier.io/docs/en/ignore.html)
+
+```typescript
+// disables prettier for the next node
+// prettier-ignore
+```
+
 ## Technology and Design Considerations
 
 Technologies were chosen based on ubiquity and commitment to long term support.
