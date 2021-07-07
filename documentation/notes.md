@@ -1,13 +1,57 @@
 # Notes
 
+Designed for TypeScript NPM libraries.
+
+- build
+- lint
+- style
+- test
+- document
+- publish
+
+## Standard Technologies
+
+- [GitHub](https://github.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [npm](https://www.npmjs.com/)
+- [node](https://nodejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [jest](https://jestjs.io/)
+- [prettier](https://prettier.io/)
+- [eslint](https://eslint.org/)
+- [api-extractor](https://api-extractor.com/)
+    - api-documenter
+    - api-extractor-run
+    - api-documenter-run
+- [ts-node](https://github.com/TypeStrong/ts-node)
+- GitHub actions
+
+note: the template will need to be updated as technology changes.
+
+## Visual Studio Code Extensions
+
+- Bracket Pair Colorizer
+    - Makes it easier to identify bracket pairs
+- ESLint
+    - config: `.eslintrc.json`
+- Prettier
+    - config: `config\prettier.json`
+    - requires command line option `--config`
+- markdownlint
+    - config: `config\.markdownlint.json`
+    - requires .vscode\settings.json extends
+
+## Features
+
+- Visual Studio Code F5 Debugging for jest tests.
+
 ## Recommendations
 
 ### Tools
 
 - [gh - GitHub command line](https://cli.github.com/manual/gh_help_reference)
 
-
-### Libraries 
+### Libraries
 
 Libraries for solving common problems
 
@@ -20,16 +64,15 @@ Libraries for solving common problems
 - [terser](https://terser.org/)
     - JavaScript minifier
 
-
 ## NPM Version Issues
 
-`npm@7.5.4` does not allow script execution with unit style paths as in the package.json instead revert ot an older version of npm that allows this behavior `npm install -g npm@6.14.9`
+`npm@7.5.4` does not allow script execution with unit style paths as in the package.json instead revert to an older version of npm that allows this behavior `npm install -g npm@6.14.9`
 
 The above shows the importance of versioning tools together.
 
 ## NPM Script Search Path
 
-npm looks first in the node_modules directory for the tool. Then it looks in the global installs before falling back to the path. 
+npm looks first in the node_modules directory for the tool. Then it looks in the global installs before falling back to the path.
 
 In order to require that only the tools specified as part of the package be run it's important to use the specific path `./node_modules/.bin` https://github.com/npm/cli/issues/2638
 
@@ -85,48 +128,3 @@ Move all possible configs under the config folder:
 - have clarity where configs exist
 - have clarity on what calls the configs
 
-
-Designed for TypeScript NPM libraries.
-
-- build
-- lint
-- style
-- test
-- document
-- publish
-
-## Standard Technologies
-
-- [GitHub](https://github.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [npm](https://www.npmjs.com/)
-- [node](https://nodejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [jest](https://jestjs.io/)
-- [prettier](https://prettier.io/)
-- [eslint](https://eslint.org/)
-- [api-extractor](https://api-extractor.com/)
-    - api-documenter
-    - api-extractor-run
-    - api-documenter-run
-- [ts-node](https://github.com/TypeStrong/ts-node)
-- GitHub actions
-
-note: the template will need to be updated as technology changes.
-
-## Visual Studio Code Extensions
-
-- Bracket Pair Colorizer
-    - Makes it easier to identify bracket pairs
-- ESLint
-    - config: `.eslintrc.json`
-- Prettier
-    - config: `config\prettier.json`
-    - requires command line option `--config`
-- markdownlint
-    - config: `config\.markdownlint.json`
-    - requires .vscode\settings.json extends
-
-## Features
-
-- Visual Studio Code F5 Debugging for jest tests.
