@@ -2,6 +2,8 @@
 
 Simple Package Template
 
+![example branch parameter](https://github.com/wandyezj/package/actions/workflows/main.yml/badge.svg?branch=main)
+
 ## About
 
 A template for NPM libraries with standard technologies to handle common library development scenarios.
