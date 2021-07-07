@@ -4,9 +4,10 @@
 name: Node.js CI
 
 on:
+# main branch CI
   push:
     branches: [ main ]
-
+# Run on pull request
   pull_request:
     types: [ opened, synchronize ]
 
