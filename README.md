@@ -2,7 +2,9 @@
 
 Simple Package Template
 
-![example branch parameter](https://github.com/wandyezj/package/actions/workflows/main.yml/badge.svg?branch=main)
+![main CI](https://github.com/wandyezj/package/actions/workflows/main.yml/badge.svg?branch=main)
+
+
 
 ## About
 
