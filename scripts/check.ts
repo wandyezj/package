@@ -1,7 +1,10 @@
 import path from "path";
 import fs from "fs";
 import * as child_process from "child_process";
-import { version } from "typescript";
+
+//
+// Check Environment
+//
 
 function env(variable: string): string {
     const value = process.env[variable];
@@ -48,8 +51,6 @@ function checkEnvironment(): void {
     console.log("\n\n");
 }
 
-checkEnvironment();
-
 function executeCommand(
     command: string,
     workingDirectory?: string,
@@ -71,6 +72,12 @@ function executeCommand(
     return child_process.execSync(command, options).toString();
 }
 
+checkEnvironment();
+
+//
+// Check Package
+//
+
 // Checks the setup of a package to see if it is compliant with the standard
 
 function readJsonFile<T>(path: string): T {
@@ -87,34 +94,114 @@ function getConfigPath(packagePath: string, fileName: string) {
     return path.join(packagePath, "config", fileName);
 }
 
-// Do By individual item
+interface PackageItemPaths {
+    /**
+     * package.json
+     */
+    package: string;
 
-function checkPrettier(packagePath: string): void {
-    console.log("check - prettier");
+    /**
+     * config/prettier.json
+     */
+    prettier: string;
 
-    const configName = "prettier.json";
-    const configPath = getConfigPath(packagePath, "prettier.json");
-    const configPresent = fileExists(configPath);
+    /**
+     * LICENSE
+     */
+    license: string;
 
-
-    if (configPresent) {
-        const config = readJsonFile<any>(configPath);
-        checkPrettierConfig(config);
-    } else {
-        console.log(`ERROR: missing config ${configName}`);
-    }
+    /**
+     * CHANGELOG.md
+     */
+    changelog: string;
 }
 
-function checkPrettierConfig(data: { [key: string]: string }): void {
-    const expected = {
-        tabWidth: 4,
-        endOfLine: "lf",
+function getPackageItemPaths(packagePath: string): PackageItemPaths {
+    return {
+        package: path.join(packagePath, "package.json"),
+        prettier: getConfigPath(packagePath, "prettier.json"),
+        license: path.join(packagePath, "LICENSE"),
+        changelog: path.join(packagePath, "CHANGELOG.md"),
     };
 }
 
-checkPrettier(path.join(__dirname, ".."));
+function getFileJson<T>(filePath: string): T | undefined {
+    const present = fileExists(filePath);
+    if (present) {
+        const data = readJsonFile<T>(filePath);
+        return data;
+    }
+
+    return undefined;
+}
 
 
+interface PrettierConfigJson {
+    tabWidth: number;
+    endOfLine: string;
+}
+
+function checkPrettierConfig(configPath: string): void {
+    console.log("check - prettier");
+
+    const config = getFileJson<PrettierConfigJson>(configPath);
+    if (config === undefined) {
+        console.log(`ERROR: missing config ${configPath}}`);
+        return;
+    }
+
+    const expected: PrettierConfigJson = {
+        tabWidth: 4,
+        endOfLine: "lf",
+    };
+
+    const properties = Object.getOwnPropertyNames(expected) as (keyof PrettierConfigJson)[];
+
+    properties.forEach((name) => {
+        const value = expected[name];
+        const actual = config[name];
+        if (typeof value !== typeof actual || JSON.stringify(value) !== JSON.stringify(actual)) {
+            console.log(`   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`);
+        }
+    });
+
+}
+
+interface PackageJson {
+    scripts : {
+        [key: string]: string;
+    }
+}
+
+function checkPackageJson(packagePath: string) {
+    console.log("check - package.json");
+
+    const config = getFileJson<PackageJson>(packagePath);
+    if (config === undefined) {
+        console.log(`ERROR: missing config ${packagePath}}`);
+        return;
+    }
+
+    const scriptNamesExpected = ["lint", "style", "compile", "test", "doc"];
+
+    const scripts = config.scripts;
+    if (scripts === undefined) {
+        console.log(`   WARNING: scripts is missing`);
+    } else {
+        const scriptNames = Object.getOwnPropertyNames(scripts);
+        const missing = scriptNamesExpected.filter((name) => ! scriptNames.includes(name));
+
+        missing.forEach((name) => {
+            console.log(`   WARNING: missing script: [${name}]`);
+        });
+    }
+}
+
+const packagePath = path.join(__dirname, "..");
+const packageItems = getPackageItemPaths(packagePath);
+
+checkPrettierConfig(packageItems.prettier);
+checkPackageJson(packageItems.package);
 
 /*
 Clean up things in the package that are only for reference
