@@ -28,7 +28,8 @@
         ],
         "quotes": [
             "warn",
-            "double"
+            "double",
+            {"allowTemplateLiterals": true, "avoidEscape": true}
         ],
         "semi": [
             "warn"

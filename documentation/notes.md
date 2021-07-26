@@ -150,4 +150,3 @@ Move all possible configs under the config folder:
 
 - have clarity where configs exist
 - have clarity on what calls the configs
-
