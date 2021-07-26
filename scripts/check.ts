@@ -170,10 +170,14 @@ function checkPrettierConfig(configPath: string): void {
 interface PackageJson {
     scripts : {
         [key: string]: string;
+    },
+
+    devDependencies: {
+        [key: string]: string;
     }
 }
 
-function checkPackageJson(packagePath: string) {
+function checkPackageJson( packagePath: string, packagePathSelf: string, ) {
     console.log("check - package.json");
 
     const config = getFileJson<PackageJson>(packagePath);
@@ -186,22 +190,66 @@ function checkPackageJson(packagePath: string) {
 
     const scripts = config.scripts;
     if (scripts === undefined) {
-        console.log(`   WARNING: scripts is missing`);
+        console.log(`    WARNING: scripts is missing`);
     } else {
         const scriptNames = Object.getOwnPropertyNames(scripts);
         const missing = scriptNamesExpected.filter((name) => ! scriptNames.includes(name));
 
         missing.forEach((name) => {
-            console.log(`   WARNING: missing script: [${name}]`);
+            console.log(`    WARNING: missing script: [${name}]`);
         });
     }
+
+    const configSelf = getFileJson<PackageJson>(packagePathSelf);
+    if (configSelf === undefined) {
+        console.log(`ERROR: missing config ${packagePathSelf}}`);
+        return;
+    }
+
+    // check 
+    const devDependencies = config.devDependencies;
+    const devDependenciesSelf = configSelf.devDependencies;
+    
+    if (devDependencies === undefined) {
+        console.log(`    WARNING: devDependencies is missing`);
+    } else if (devDependenciesSelf === undefined) {
+        console.log(`    ERROR: devDependencies is missing from own package!`);
+    } else {
+        // compare devDependencies
+        const names = Object.getOwnPropertyNames(devDependenciesSelf);
+
+        names.forEach((name: string) => {
+            const value = devDependenciesSelf[name];
+            const actual = devDependencies[name];
+
+            if (value !== undefined && actual === undefined) {
+                console.log(`    ERROR: devDependencies is missing "${name}": "${value}",`);
+            } else if (value !== actual) {
+                console.log(`    WARNING: devDependencies: expected "${name}": "${value}",`);
+            }
+        });
+    }
+
 }
 
-const packagePath = path.join(__dirname, "..");
-const packageItems = getPackageItemPaths(packagePath);
+const parameters = process.argv.slice(2);
 
-checkPrettierConfig(packageItems.prettier);
-checkPackageJson(packageItems.package);
+const [otherPackage] = parameters;
+
+function checkPackage(packagePathOther?: string) {
+
+    const packagePathSelf = path.join(__dirname, "..");
+    const packagePath = packagePathOther || packagePathSelf;
+    
+    const packageItemsSelf = getPackageItemPaths(packagePathSelf);
+    const packageItems = getPackageItemPaths(packagePath);
+    
+    checkPrettierConfig(packageItems.prettier);
+    checkPackageJson(packageItems.package, packageItemsSelf.package);
+}
+
+checkPackage(otherPackage);
+
 
 /*
 Clean up things in the package that are only for reference
