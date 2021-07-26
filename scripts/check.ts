@@ -1,5 +1,7 @@
 import path from "path";
 import fs from "fs";
+import * as child_process from "child_process";
+import { version } from "typescript";
 
 function env(variable: string): string {
     const value = process.env[variable];
@@ -13,7 +15,7 @@ interface Environment {
     GITHUB_HEAD_REF?: string;
     GITHUB_WORKSPACE?: string;
 
-    BRANCH_NAME?:string;
+    BRANCH_NAME?: string;
 }
 
 function getEnvironmentVariables(): Environment {
@@ -40,10 +42,34 @@ function checkEnvironment(): void {
     console.log("\n\n");
     console.log(variables);
     console.log("\n\n");
+
+    const versionData = executeCommand(`npm --version`);
+    console.log(versionData);
+    console.log("\n\n");
 }
 
 checkEnvironment();
 
+function executeCommand(
+    command: string,
+    workingDirectory?: string,
+    ignoreError?: boolean,
+): string {
+    console.log(command);
+
+    const options: { cwd?: string; encoding?: string; stdio?: any[] } = {};
+    if (workingDirectory !== undefined) {
+        options.cwd = workingDirectory;
+    }
+
+    if (ignoreError !== undefined && ignoreError) {
+        options.stdio = ["ignore", "pipe", "ignore"];
+    }
+
+    options.encoding = "utf-8";
+
+    return child_process.execSync(command, options).toString();
+}
 
 // Checks the setup of a package to see if it is compliant with the standard
 

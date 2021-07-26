@@ -57,8 +57,6 @@ Uses compiled dist/index.d.ts
 
 Checks for changes in the packages publish signature
 
-
-
 ## Standard Technologies
 
 - [GitHub](https://github.com/)
@@ -204,9 +202,10 @@ Adopting every new technology that has some small benefit comes with a cost. It'
 - Minimize Dependencies, document any reasons for dependencies, why they are required and how they are used
 - Reduce Attack Surface Area, everyone is responsible to security, do not invent or implement your own hashing or cryptographic algorithms leave these things to experts
 - Privacy do not send any data, do not cache or store any data
-- Avoid Semantic versioning, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
+- Avoid Semantic versioning unless practicing it strictly, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
 
 Move all possible configs under the config folder:
 
 - have clarity where configs exist
 - have clarity on what calls the configs
+- remove clutter in the root folder
