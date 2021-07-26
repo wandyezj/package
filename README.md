@@ -6,8 +6,12 @@ Simple Package Template
 
 ## About
 
-A template for TypeScript NPM libraries with standard technologies to handle common library development scenarios.
+A template for TypeScript NPM libraries with standard technologies to handle common development scenarios.
 
-[notes](./documentation/notes.md)
+[setup](./documentation/setup.md)
+
+[changelog](./CHANGELOG.md)
 
 [deploy](./documentation/deploy.md)
+
+[notes](./documentation/notes.md)
