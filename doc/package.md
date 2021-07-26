@@ -10,5 +10,5 @@ Package Documentation
 
 |  Function | Description |
 |  --- | --- |
-|  [hello()](./package.hello.md) | Example Documentation |
+|  [hello()](./package.hello.md) | <b><i>(BETA)</i></b> Example Documentation |
 

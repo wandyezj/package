@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public
+// @beta
 export function hello(): string;
 
 ```
