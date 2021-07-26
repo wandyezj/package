@@ -1,6 +1,9 @@
 {
     "files.eol": "\n",
     "editor.renderWhitespace": "all",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "extensions.ignoreRecommendations": true,
+    "files.associations": { "*.json": "jsonc" },
 
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
@@ -18,10 +21,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 
-    "files.associations": { "*.json": "jsonc" },
 
     "prettier.configPath": "config/prettier.json",
-
 
     "eslint.options": {
         "configFile": "config/.eslintrc.json",
@@ -31,6 +32,6 @@
     "markdownlint.config": {
         "extends": "./config/.markdownlint.json"
     },
-    
+
     "cSpell.words": ["linebreak", "markdownlint", "prettierrc"]
 }
