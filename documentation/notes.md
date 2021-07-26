@@ -95,7 +95,6 @@ Benefits:
 
 Windows cmd does not need the extension on the tool to work. `cmd.exe` has a precedence list for executing items in the path without the extension's presence by looking for the command without the extension (i.e. hello will call hello.exe, hello.bat, hello.cmd, etc.. in that order as it searches the path).
 
-
 ## eslint disables
 
 [eslint disabling rules](https://eslint.org/docs/user-guide/configuring/rules#disabling-rules)
@@ -121,6 +120,12 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 
 [@packageDocumentation](https://api-extractor.com/pages/tsdoc/tag_packagedocumentation/)
     - Document package
+
+## Jest run single or group of tests
+
+--testNamePattern
+
+> npm run test -t testname*
 
 ## Package Layout
 
