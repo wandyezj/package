@@ -117,6 +117,11 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 // prettier-ignore
 ```
 
+## TS Doc
+
+[@packageDocumentation](https://api-extractor.com/pages/tsdoc/tag_packagedocumentation/)
+    - Document package
+
 ## Package Layout
 
 - config

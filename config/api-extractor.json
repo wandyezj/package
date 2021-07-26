@@ -274,6 +274,7 @@
    * There are three sources of messages:  compiler messages, API Extractor messages, and TSDoc messages.
    */
   "messages": {
+
     /**
      * Configures handling of diagnostic messages reported by the TypeScript compiler engine while analyzing
      * the input .d.ts files.
@@ -308,7 +309,8 @@
          *
          * DEFAULT VALUE: false
          */
-        "addToApiReportFile": true
+        "addToApiReportFile": true,
+
       }
 
       // "TS2551": {
@@ -332,6 +334,12 @@
         "addToApiReportFile": true
       },
 
+      // missing release tag should be enabled if publishing a package with well versioned signatures.
+      "ae-missing-release-tag": {
+        "logLevel": "warning",
+        "addToApiReportFile": false
+      },
+
       "ae-extra-release-tag": {
         "logLevel": "warning",
         "addToApiReportFile": true
@@ -341,6 +349,8 @@
         "logLevel": "warning",
         "addToApiReportFile": true
       }
+
+      
       //
       // . . .
     },

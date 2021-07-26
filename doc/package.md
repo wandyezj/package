@@ -4,9 +4,11 @@
 
 ## package package
 
+Package Documentation
+
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
-|  [f()](./package.f.md) |  |
+|  [hello()](./package.hello.md) | Example Documentation |
 
