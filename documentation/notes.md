@@ -9,6 +9,56 @@ Designed for TypeScript NPM libraries.
 - document
 - publish
 
+## Commands
+
+### test
+
+run tests
+
+### test-coverage
+
+get test coverage
+
+separate command because test-coverage can take longer to run than simply running tests
+
+### prepack
+
+npm built in command run before publish
+
+should be used to build everything and test the package.
+
+### build
+
+Standard development command.
+
+### style
+
+applys consistent formatting to src and test
+
+### lint
+
+run linter on src and test to detect common issues
+
+### clean
+
+remove contents of dist and temp
+
+it is desireable to wipe out the contents of dist and temp before building to avoid persistance of removed files.
+
+### compile
+
+Run the TypeScript compiler and generate the dist
+
+### doc
+
+Generates the doc folder
+
+Uses compiled dist/index.d.ts
+
+Checks for changes in the packages publish signature
+
+
+
 ## Standard Technologies
 
 - [GitHub](https://github.com/)

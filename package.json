@@ -14,14 +14,15 @@
         "test": "./test"
     },
     "scripts": {
-        "prepack": "npm run build && npm run test",
-        "build": "npm run style && npm run lint && npm run clean && npm run compile && npm run doc",
+        "prepack": "npm run build && npm run doc && npm run test",
+        "build": "npm run style && npm run lint && npm run clean && npm run compile",
         "style": "npm run prettier",
         "lint": "npm run eslint",
-        "clean": "if exist dist (rmdir /S /Q dist)",
+        "clean": "if exist dist (rmdir /S /Q dist) && if exist temp (rmdir /S /Q temp)",
         "compile": "./node_modules/.bin/tsc --project ./tsconfig.json",
         "doc": "npm run doc-extract && npm run doc-document",
         "test": "jest --no-cache --config=./config/jest.config.js",
+        "test-coverage": "jest --no-cache --config=./config/jest.config.js --coverage",
         "lint-fix": "npm run eslint-fix",
         "prettier": "./node_modules/.bin/prettier --config ./config/prettier.json --write \"@(src|test)/**/*.@(ts|js|md|html|css|json)\"",
         "eslint": "./node_modules/.bin/eslint -c ./config/eslint.json --no-eslintrc src/ test/",
