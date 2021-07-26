@@ -337,7 +337,7 @@
       // missing release tag should be enabled if publishing a package with well versioned signatures.
       "ae-missing-release-tag": {
         "logLevel": "warning",
-        "addToApiReportFile": false
+        "addToApiReportFile": true
       },
 
       "ae-extra-release-tag": {

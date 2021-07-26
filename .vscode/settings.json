@@ -1,7 +1,7 @@
 {
     "files.eol": "\n",
     "editor.renderWhitespace": "all",
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "extensions.ignoreRecommendations": true,
     "files.associations": { "*.json": "jsonc" },
 
@@ -25,7 +25,7 @@
     "prettier.configPath": "config/prettier.json",
 
     "eslint.options": {
-        "configFile": "config/.eslintrc.json",
+        "configFile": "config/eslint.json",
         "resolvePluginsRelativeTo": "${workspaceFolder}"
     },
 
