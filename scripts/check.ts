@@ -70,8 +70,6 @@ function executeCommand(
     return child_process.execSync(command, options).toString();
 }
 
-
-
 //
 // Check Package
 //
@@ -136,6 +134,18 @@ interface PrettierConfigJson {
     endOfLine: string;
 }
 
+interface SettingsJson {
+    [key: string]: string;
+}
+
+function getJsonText(o: unknown): string {
+    return formatJson(JSON.stringify(o));
+}
+
+function writeJsonFile(path: string, o: unknown) {
+    writeFileSync(path, getJsonText(o));
+}
+
 class PackageItems {
     /**
      * package root directory
@@ -167,6 +177,12 @@ class PackageItems {
      */
     readonly changelog: string;
 
+    /**
+     * .vscode/settings.json
+     * path
+     */
+    readonly settings: string;
+
     constructor(root: string) {
         this.root = root;
 
@@ -174,18 +190,27 @@ class PackageItems {
         this.prettier = getConfigPath(this.root, "prettier.json");
         this.license = path.join(this.root, "LICENSE");
         this.changelog = path.join(this.root, "CHANGELOG.md");
+        this.settings = path.join(this.root, ".vscode", "settings.json");
     }
 
-    get packageJson(): PackageJson | undefined {
+    getPackageJson(): PackageJson | undefined {
         return getFileJson<PackageJson>(this.package);
     }
 
-    writePackageJson(packageJson: PackageJson) {
-        writeFileSync(this.package, formatJson(JSON.stringify(packageJson)));
+    writePackageJson(o: PackageJson) {
+        writeJsonFile(this.package, o);
     }
 
-    get prettierConfigJson(): PrettierConfigJson | undefined {
+    getPrettierConfigJson(): PrettierConfigJson | undefined {
         return getFileJson<PrettierConfigJson>(this.prettier);
+    }
+
+    getSettingsJson(): SettingsJson | undefined {
+        return getFileJson<SettingsJson>(this.settings);
+    }
+
+    writeSettingsJson(o: SettingsJson) {
+        writeJsonFile(this.settings, o);
     }
 }
 
@@ -301,30 +326,75 @@ function checkPackage(packageSelf: PackageItems, packageTarget: PackageItems) {
 }
 
 function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
-
+    //
+    // package.json
+    //
+    
     // update all the tool versions
-    const packageJsonSelf = packageSelf.packageJson;
-    const packageJsonTarget = packageTarget.packageJson;
+    const packageJsonSelf = packageSelf.getPackageJson();
+    const packageJsonTarget = packageTarget.getPackageJson();
 
     if (packageJsonSelf !== undefined && packageJsonTarget !== undefined) {
-        Object.getOwnPropertyNames(packageJsonSelf.devDependencies || {}).forEach(
-            (name) => {
-                const present = packageJsonTarget.devDependencies[name] !== undefined;
-                // only update if already present
-                // this allows deletion of unused packages
-                if (present) {
-                    packageJsonTarget.devDependencies[name] =
+        Object.getOwnPropertyNames(
+            packageJsonSelf.devDependencies || {}
+        ).forEach((name) => {
+            const present =
+                packageJsonTarget.devDependencies[name] !== undefined;
+            // only update if already present
+            // this allows deletion of unused packages
+            if (present) {
+                packageJsonTarget.devDependencies[name] =
                     packageJsonSelf.devDependencies[name];
-                }
-                
             }
-        );
+        });
+        
+
+        // simply overwrite these scripts if present
+        const scripts = [
+            "test",
+            "clean",
+            "prettier",
+            "eslint",
+            "eslint-fix",
+            "prepack",
+            "build",
+        ];
+        scripts.forEach((name) => {
+            const present = packageJsonTarget.scripts[name] !== undefined;
+            // only update if already present
+            // this allows persistance of deletion for unused scripts
+            if (present) {
+                packageJsonTarget.scripts[name] = packageJsonSelf.scripts[name];
+            }
+        });
+
         packageTarget.writePackageJson(packageJsonTarget);
     }
 
     //
+    // settings.json
+    //
 
+    // overwrite specific settings.json if present
+    const settings = [
+        "prettier.configPath",
+        "eslint.options",
+        "markdownlint.config",
+    ];
 
+    const settingsJsonSelf = packageSelf.getSettingsJson();
+    const settingsJsonTarget = packageTarget.getSettingsJson();
+
+    if (settingsJsonSelf !== undefined && settingsJsonTarget !== undefined) {
+        settings.forEach((name) => {
+            const present = settingsJsonTarget[name] !== undefined;
+            if (present) {
+                settingsJsonTarget[name] = settingsJsonSelf[name];
+            }
+        });
+
+        packageTarget.writeSettingsJson(settingsJsonTarget);
+    }
 }
 
 function runAction(parameters: string[]) {
