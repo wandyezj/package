@@ -1,6 +1,7 @@
 import path from "path";
 import fs, { writeFileSync } from "fs";
 import * as child_process from "child_process";
+import prettier from "prettier";
 
 //
 // Check Environment
@@ -69,7 +70,7 @@ function executeCommand(
     return child_process.execSync(command, options).toString();
 }
 
-checkEnvironment();
+
 
 //
 // Check Package
@@ -89,6 +90,35 @@ function fileExists(path: string) {
 
 function getConfigPath(packagePath: string, fileName: string) {
     return path.join(packagePath, "config", fileName);
+}
+
+function formatText(
+    text: string,
+    parser: "json" | "typescript" | "markdown" | "babel",
+    options?: {
+        printWidth?: number;
+    }
+): string {
+    return prettier.format(text, {
+        trailingComma: "es5",
+        tabWidth: 4,
+        semi: true,
+        //singleQuote: true,
+        arrowParens: "always",
+        endOfLine: "lf",
+        proseWrap: "preserve",
+        printWidth: options?.printWidth || 80, // Swap to 120 to preserve function names on a single line
+        parser,
+    });
+}
+
+export function formatJson(
+    text: string,
+    options?: {
+        printWidth?: number;
+    }
+): string {
+    return formatText(text, "json", options);
 }
 
 interface PackageJson {
@@ -151,7 +181,7 @@ class PackageItems {
     }
 
     writePackageJson(packageJson: PackageJson) {
-        writeFileSync(this.package, JSON.stringify(packageJson));
+        writeFileSync(this.package, formatJson(JSON.stringify(packageJson)));
     }
 
     get prettierConfigJson(): PrettierConfigJson | undefined {
@@ -271,18 +301,30 @@ function checkPackage(packageSelf: PackageItems, packageTarget: PackageItems) {
 }
 
 function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
-    // update all the tool versions, simply overwrites
+
+    // update all the tool versions
     const packageJsonSelf = packageSelf.packageJson;
     const packageJsonTarget = packageTarget.packageJson;
 
-    Object.getOwnPropertyNames(packageJsonSelf.devDependencies).forEach(
-        (name) => {
-            packageJsonTarget.devDependencies[name] =
-                packageJsonSelf.devDependencies[name];
-        }
-    );
+    if (packageJsonSelf !== undefined && packageJsonTarget !== undefined) {
+        Object.getOwnPropertyNames(packageJsonSelf.devDependencies || {}).forEach(
+            (name) => {
+                const present = packageJsonTarget.devDependencies[name] !== undefined;
+                // only update if already present
+                // this allows deletion of unused packages
+                if (present) {
+                    packageJsonTarget.devDependencies[name] =
+                    packageJsonSelf.devDependencies[name];
+                }
+                
+            }
+        );
+        packageTarget.writePackageJson(packageJsonTarget);
+    }
 
-    packageTarget.writePackageJson(packageJsonTarget);
+    //
+
+
 }
 
 function runAction(parameters: string[]) {
@@ -300,6 +342,9 @@ function runAction(parameters: string[]) {
             break;
         case "update":
             updatePackage(packageSelf, packageTarget);
+            break;
+        case "environment":
+            checkEnvironment();
             break;
         default:
             console.log(`invalid action: ${action}`);

@@ -21,14 +21,14 @@
         "clean": "if exist dist (rmdir /S /Q dist) && if exist temp (rmdir /S /Q temp)",
         "compile": "./node_modules/.bin/tsc --project ./tsconfig.json",
         "doc": "npm run doc-extract && npm run doc-document",
-        "test": "jest --no-cache --config=./config/jest.config.js",
-        "test-coverage": "jest --no-cache --config=./config/jest.config.js --coverage",
+        "test": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js",
+        "test-coverage": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js --coverage",
         "lint-fix": "npm run eslint-fix",
         "style-check": "npm run prettier-check",
         "prettier": "./node_modules/.bin/prettier --config ./config/prettier.json --write \"@(src|test|scripts)/**/*.@(ts|js|md|html|css|json)\"",
         "prettier-check": "./node_modules/.bin/prettier --config ./config/prettier.json --check \"@(src|test)/**/*.@(ts|js|md|html|css|json)\"",
-        "eslint": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc src/ test/",
-        "eslint-fix": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc --fix src/ test/",
+        "eslint": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc src/ test/ scripts/",
+        "eslint-fix": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc --fix src/ test/ scripts/",
         "api-extractor": "./node_modules/.bin/api-extractor",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
@@ -45,8 +45,7 @@
         "url": "https://github.com/wandyezj/package/issues"
     },
     "homepage": "https://github.com/wandyezj/package#readme",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "@microsoft/api-documenter": "^7.13.33",
         "@microsoft/api-extractor": "^7.18.4",
