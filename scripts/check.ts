@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs, { writeFileSync } from "fs";
 import * as child_process from "child_process";
 
 //
@@ -58,16 +58,13 @@ function executeCommand(
 ): string {
     console.log(command);
 
-    const options: { cwd?: string; encoding?: string; stdio?: any[] } = {};
+    const options: child_process.ExecSyncOptions={ encoding:"utf8"};
     if (workingDirectory !== undefined) {
         options.cwd = workingDirectory;
     }
-
     if (ignoreError !== undefined && ignoreError) {
         options.stdio = ["ignore", "pipe", "ignore"];
     }
-
-    options.encoding = "utf-8";
 
     return child_process.execSync(command, options).toString();
 }
@@ -94,35 +91,76 @@ function getConfigPath(packagePath: string, fileName: string) {
     return path.join(packagePath, "config", fileName);
 }
 
-interface PackageItemPaths {
+interface PackageJson {
+    scripts: {
+        [key: string]: string;
+    };
+
+    devDependencies: {
+        [key: string]: string;
+    };
+}
+
+interface PrettierConfigJson {
+    tabWidth: number;
+    endOfLine: string;
+}
+
+class PackageItems {
+    /**
+     * package root directory
+     * path
+     */
+    readonly root: string;
+
     /**
      * package.json
+     * path
      */
-    package: string;
+    readonly package: string;
 
     /**
      * config/prettier.json
+     * path
      */
-    prettier: string;
+    readonly prettier: string;
 
     /**
      * LICENSE
+     * path
      */
-    license: string;
+    readonly license: string;
 
     /**
      * CHANGELOG.md
+     * path
      */
-    changelog: string;
+    readonly changelog: string;
+
+    constructor(root: string) {
+        this.root = root;
+
+        this.package = path.join(this.root, "package.json");
+        this.prettier = getConfigPath(this.root, "prettier.json");
+        this.license = path.join(this.root, "LICENSE");
+        this.changelog = path.join(this.root, "CHANGELOG.md");
+    }
+
+    get packageJson(): PackageJson | undefined {
+        return getFileJson<PackageJson>(this.package);
+    }
+
+    writePackageJson(packageJson: PackageJson) {
+        writeFileSync(this.package, JSON.stringify(packageJson));
+    }
+
+    get prettierConfigJson(): PrettierConfigJson | undefined {
+        return getFileJson<PrettierConfigJson>(this.prettier);
+    }
 }
 
-function getPackageItemPaths(packagePath: string): PackageItemPaths {
-    return {
-        package: path.join(packagePath, "package.json"),
-        prettier: getConfigPath(packagePath, "prettier.json"),
-        license: path.join(packagePath, "LICENSE"),
-        changelog: path.join(packagePath, "CHANGELOG.md"),
-    };
+function getPackageItemPaths(packagePath: string): PackageItems {
+    return new PackageItems(packagePath);
 }
 
 function getFileJson<T>(filePath: string): T | undefined {
@@ -135,11 +173,6 @@ function getFileJson<T>(filePath: string): T | undefined {
     return undefined;
 }
 
-
-interface PrettierConfigJson {
-    tabWidth: number;
-    endOfLine: string;
-}
 
 function checkPrettierConfig(configPath: string): void {
     console.log("check - prettier");
@@ -155,34 +188,32 @@ function checkPrettierConfig(configPath: string): void {
         endOfLine: "lf",
     };
 
-    const properties = Object.getOwnPropertyNames(expected) as (keyof PrettierConfigJson)[];
+    const properties = Object.getOwnPropertyNames(
+        expected
+    ) as (keyof PrettierConfigJson)[];
 
     properties.forEach((name) => {
         const value = expected[name];
         const actual = config[name];
-        if (typeof value !== typeof actual || JSON.stringify(value) !== JSON.stringify(actual)) {
-            console.log(`   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`);
+        if (
+            typeof value !== typeof actual ||
+            JSON.stringify(value) !== JSON.stringify(actual)
+        ) {
+            console.log(
+                `   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`
+            );
         }
     });
-
 }
 
-interface PackageJson {
-    scripts : {
-        [key: string]: string;
-    },
 
-    devDependencies: {
-        [key: string]: string;
-    }
-}
 
-function checkPackageJson( packagePath: string, packagePathSelf: string, ) {
+function checkPackageJson(packagePathSelf: string, packagePathTarget: string) {
     console.log("check - package.json");
 
-    const config = getFileJson<PackageJson>(packagePath);
+    const config = getFileJson<PackageJson>(packagePathTarget);
     if (config === undefined) {
-        console.log(`ERROR: missing config ${packagePath}}`);
+        console.log(`ERROR: missing config ${packagePathTarget}}`);
         return;
     }
 
@@ -193,7 +224,9 @@ function checkPackageJson( packagePath: string, packagePathSelf: string, ) {
         console.log(`    WARNING: scripts is missing`);
     } else {
         const scriptNames = Object.getOwnPropertyNames(scripts);
-        const missing = scriptNamesExpected.filter((name) => ! scriptNames.includes(name));
+        const missing = scriptNamesExpected.filter(
+            (name) => !scriptNames.includes(name)
+        );
 
         missing.forEach((name) => {
             console.log(`    WARNING: missing script: [${name}]`);
@@ -206,10 +239,10 @@ function checkPackageJson( packagePath: string, packagePathSelf: string, ) {
         return;
     }
 
-    // check 
+    // check
     const devDependencies = config.devDependencies;
     const devDependenciesSelf = configSelf.devDependencies;
-    
+
     if (devDependencies === undefined) {
         console.log(`    WARNING: devDependencies is missing`);
     } else if (devDependenciesSelf === undefined) {
@@ -223,33 +256,64 @@ function checkPackageJson( packagePath: string, packagePathSelf: string, ) {
             const actual = devDependencies[name];
 
             if (value !== undefined && actual === undefined) {
-                console.log(`    ERROR: devDependencies is missing "${name}": "${value}",`);
+                console.log(
+                    `    ERROR: devDependencies is missing "${name}": "${value}",`
+                );
             } else if (value !== actual) {
-                console.log(`    WARNING: devDependencies: expected "${name}": "${value}",`);
+                console.log(
+                    `    WARNING: devDependencies: expected "${name}": "${value}",`
+                );
             }
         });
     }
+}
 
+function checkPackage(packageSelf: PackageItems, packageTarget: PackageItems) {
+    checkPrettierConfig(packageTarget.prettier);
+    checkPackageJson(packageSelf.package, packageTarget.package);
+}
+
+function updatePackage(
+    packageSelf: PackageItems,
+    packageTarget: PackageItems
+) {
+    // update all the tool versions, simply overwrites
+    const packageJsonSelf = packageSelf.packageJson;
+    const packageJsonTarget = packageTarget.packageJson;
+
+    Object.getOwnPropertyNames(packageJsonSelf.devDependencies).forEach((name) => {
+        packageJsonTarget.devDependencies[name] = packageJsonSelf.devDependencies[name];
+    });
+
+    packageTarget.writePackageJson(packageJsonTarget);
+
+}
+
+function runAction(parameters: string[]) {
+    const [action, otherPackage] = parameters;
+
+    const packagePathSelf = path.join(__dirname, "..");
+    const packagePathTarget = otherPackage || packagePathSelf;
+
+    const packageSelf = getPackageItemPaths(packagePathSelf);
+    const packageTarget = getPackageItemPaths(packagePathTarget);
+
+    switch (action) {
+        case "check":
+            checkPackage(packageSelf, packageTarget);
+            break;
+        case "update":
+            updatePackage(packageSelf, packageTarget);
+            break;
+        default:
+            console.log(`invalid action: ${action}`);
+            break;
+    }
 }
 
 const parameters = process.argv.slice(2);
 
-const [otherPackage] = parameters;
-
-function checkPackage(packagePathOther?: string) {
-
-    const packagePathSelf = path.join(__dirname, "..");
-    const packagePath = packagePathOther || packagePathSelf;
-    
-    const packageItemsSelf = getPackageItemPaths(packagePathSelf);
-    const packageItems = getPackageItemPaths(packagePath);
-    
-    checkPrettierConfig(packageItems.prettier);
-    checkPackageJson(packageItems.package, packageItemsSelf.package);
-}
-
-checkPackage(otherPackage);
-
+runAction(parameters);
 
 /*
 Clean up things in the package that are only for reference
