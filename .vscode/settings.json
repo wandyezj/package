@@ -30,7 +30,7 @@
     },
 
     "markdownlint.config": {
-        "extends": "./config/.markdownlint.json"
+        "extends": "./config/markdownlint.json"
     },
 
     "cSpell.words": ["linebreak", "markdownlint", "prettierrc"]
