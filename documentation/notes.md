@@ -57,12 +57,15 @@ Uses compiled dist/index.d.ts
 
 Checks for changes in the packages publish signature
 
-## Standard Technologies
+## Standard Tools
 
+- [Git](https://git-scm.com/)
 - [GitHub](https://github.com/)
+- [gh GitHub command line](https://cli.github.com/manual/gh_help_reference)
+- [GitHub Desktop](https://desktop.github.com/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [npm](https://www.npmjs.com/)
-- [node](https://nodejs.org/)
+- [node](https://nodejs.org/) [download node lts](https://nodejs.org/en/download/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [jest](https://jestjs.io/)
 - [prettier](https://prettier.io/)
@@ -76,37 +79,6 @@ Checks for changes in the packages publish signature
 
 note: the template will need to be updated as technology changes.
 
-## Visual Studio Code Extensions
-
-- Bracket Pair Colorizer
-    - Makes it easier to identify bracket pairs
-- ESLint
-    - config: `.eslintrc.json`
-- Prettier
-    - config: `config\prettier.json`
-    - requires command line option `--config`
-- markdownlint
-    - config: `config\.markdownlint.json`
-    - requires .vscode\settings.json extends
-
-## Features
-
-- Visual Studio Code F5 Debugging for jest tests.
-
-## Recommendations
-
-### Tools
-
-[Git](https://git-scm.com/)
-
-[Node LTS](https://nodejs.org/en/download/)
-
-[Visual Studio Code](https://code.visualstudio.com/)
-
-[gh GitHub command line](https://cli.github.com/manual/gh_help_reference)
-
-[GitHub Desktop](https://desktop.github.com/)
-
 ### Libraries
 
 Libraries for solving common problems
@@ -119,6 +91,26 @@ Libraries for solving common problems
 
 - [terser](https://terser.org/)
     - JavaScript minifier
+
+### Visual Studio Code Extensions
+
+- Bracket Pair Colorizer
+    - Makes it easier to identify bracket pairs
+- ESLint
+    - config: `config\eslint.json`
+    - requires command line option `--config`
+    - requires .vscode\settings.json `"eslint.options": { "configFile": "config/eslint.json", "resolvePluginsRelativeTo": "${workspaceFolder}" },`
+- Prettier
+    - config: `config\prettier.json`
+    - requires command line option `--config`
+    - requires .vscode\settings.json `"prettier.configPath": "config/prettier.json",`
+- markdownlint
+    - config: `config\.markdownlint.json`
+    - requires .vscode\settings.json `"markdownlint.config": { "extends": "./config/.markdownlint.json" },`
+
+## Features
+
+- Visual Studio Code F5 Debugging for jest tests.
 
 ## NPM Version Issues
 
@@ -200,9 +192,9 @@ Adopting every new technology that has some small benefit comes with a cost. It'
 
 - Strong types, Strong contracts, implicitly difficult in a dynamically typed language
 - Minimize Dependencies, document any reasons for dependencies, why they are required and how they are used
-- Reduce Attack Surface Area, everyone is responsible to security, do not invent or implement your own hashing or cryptographic algorithms leave these things to experts
-- Privacy do not send any data, do not cache or store any data
-- Avoid Semantic versioning unless practicing it strictly, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
+- Reduce Attack Surface Area, everyone is responsible to security, do not invent or implement custom hashing or cryptographic algorithms leave these things to experts
+- Privacy, do not send any data, do not cache or store any data
+- Semantic Versioning, avoid unless practicing it strictly, every change is a potential breaking change, perhaps even unexpectedly, semantic versioning is a way to signal, but it needs to adhere to a specified contract about what is considered breaking, but it is still inaccurate in terms of how dependencies are taken, execution changes verses compilation changes
 
 Move all possible configs under the config folder:
 
