@@ -54,11 +54,11 @@ function checkEnvironment(): void {
 function executeCommand(
     command: string,
     workingDirectory?: string,
-    ignoreError?: boolean,
+    ignoreError?: boolean
 ): string {
     console.log(command);
 
-    const options: child_process.ExecSyncOptions={ encoding:"utf8"};
+    const options: child_process.ExecSyncOptions = { encoding: "utf8" };
     if (workingDirectory !== undefined) {
         options.cwd = workingDirectory;
     }
@@ -173,7 +173,6 @@ function getFileJson<T>(filePath: string): T | undefined {
     return undefined;
 }
 
-
 function checkPrettierConfig(configPath: string): void {
     console.log("check - prettier");
 
@@ -205,8 +204,6 @@ function checkPrettierConfig(configPath: string): void {
         }
     });
 }
-
-
 
 function checkPackageJson(packagePathSelf: string, packagePathTarget: string) {
     console.log("check - package.json");
@@ -273,20 +270,19 @@ function checkPackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     checkPackageJson(packageSelf.package, packageTarget.package);
 }
 
-function updatePackage(
-    packageSelf: PackageItems,
-    packageTarget: PackageItems
-) {
+function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     // update all the tool versions, simply overwrites
     const packageJsonSelf = packageSelf.packageJson;
     const packageJsonTarget = packageTarget.packageJson;
 
-    Object.getOwnPropertyNames(packageJsonSelf.devDependencies).forEach((name) => {
-        packageJsonTarget.devDependencies[name] = packageJsonSelf.devDependencies[name];
-    });
+    Object.getOwnPropertyNames(packageJsonSelf.devDependencies).forEach(
+        (name) => {
+            packageJsonTarget.devDependencies[name] =
+                packageJsonSelf.devDependencies[name];
+        }
+    );
 
     packageTarget.writePackageJson(packageJsonTarget);
-
 }
 
 function runAction(parameters: string[]) {
