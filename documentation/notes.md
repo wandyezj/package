@@ -76,6 +76,7 @@ should be used to build everything and test the package.
 
 ### Tools
 
+- [Windows](https://www.microsoft.com/en-us/windows/)
 - [Git](https://git-scm.com/)
 - [GitHub](https://github.com/)
 - [GitHub Desktop](https://desktop.github.com/)
@@ -203,3 +204,7 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 --testNamePattern
 
 > npm run test -t testname*
+
+## GitHub Actions
+
+Make sure the operating system run on and the node version match those used on the development machine.
