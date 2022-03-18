@@ -5,6 +5,9 @@
     "extensions.ignoreRecommendations": true,
     "files.associations": { "*.json": "jsonc" },
 
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active",
+
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },

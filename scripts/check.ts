@@ -13,12 +13,22 @@ function env(variable: string): string {
 }
 
 interface Environment {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_REF?: string;
+    
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_ACTOR?: string;
+    
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_EVENT_NAME?: string;
+    
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_HEAD_REF?: string;
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_WORKSPACE?: string;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     BRANCH_NAME?: string;
 }
 
@@ -329,7 +339,7 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     //
     // package.json
     //
-    
+
     // update all the tool versions
     const packageJsonSelf = packageSelf.getPackageJson();
     const packageJsonTarget = packageTarget.getPackageJson();
@@ -347,7 +357,6 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
                     packageJsonSelf.devDependencies[name];
             }
         });
-        
 
         // simply overwrite these scripts if present
         const scripts = [

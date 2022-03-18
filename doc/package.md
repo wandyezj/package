@@ -4,11 +4,9 @@
 
 ## package package
 
-Package Documentation
-
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
-|  [hello()](./package.hello.md) | <b><i>(BETA)</i></b> Example Documentation |
+|  [f()](./package.f.md) |  |
 

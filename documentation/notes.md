@@ -112,8 +112,6 @@ Libraries for solving common problems
 
 ### Visual Studio Code Extensions
 
-- Bracket Pair Colorizer
-    - Makes it easier to identify bracket pairs
 - ESLint
     - config: `config\eslint.json`
     - requires command line option `--config`
@@ -149,6 +147,10 @@ Move all possible configs under the config folder:
 ## Features
 
 - Visual Studio Code F5 Debugging for jest tests.
+
+## Node Version
+
+This package is intended to work on the laster node version and included NPM version.
 
 ## NPM Version Issues
 
@@ -205,6 +207,33 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 
 > npm run test -t testname*
 
-## GitHub Actions
+## Technology Choice
 
-Make sure the operating system run on and the node version match those used on the development machine.
+### GitHub Actions
+
+Make sure the operating system and the node version used in GitHub Actions matchs those used on the development machine.
+
+### Source Control
+
+Git is used as the source control of choice. There are many source control systems available, however the default and most ubiquitous as of 2022-03-01 is Git.
+
+### Editor
+
+Visual Studio Code is cross platform and is ubiquitous editor.
+
+### TypeScript
+
+Strong Types aid development.
+
+An alternative to TypeScript is [JSDOC](https://jsdoc.app/) tags.
+
+
+## Operating System
+
+Ubuntu
+
+Node currently (2022-03-01) has significantly better performance on Linux than on Windows. This results in faster job exection time, and thus reduced cost, and wait time for GitHub Action pipelines.
+
+Ubuntu is a ubiquitous distribution and available as a build pool, and in WSL.
+
+Commands use linux paths. On Windows WSL can be used to execute commands.
