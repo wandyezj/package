@@ -15,13 +15,13 @@ function env(variable: string): string {
 interface Environment {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_REF?: string;
-    
+
     // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_ACTOR?: string;
-    
+
     // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_EVENT_NAME?: string;
-    
+
     // eslint-disable-next-line @typescript-eslint/naming-convention
     GITHUB_HEAD_REF?: string;
 
