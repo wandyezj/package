@@ -1,5 +1,5 @@
 import path from "path";
-import fs, { writeFileSync } from "fs";
+import fs, { writeFileSync, copyFileSync, mkdirSync } from "fs";
 import * as child_process from "child_process";
 import prettier from "prettier";
 
@@ -96,8 +96,8 @@ function fileExists(path: string) {
     return fs.existsSync(path) && fs.lstatSync(path).isFile;
 }
 
-function getConfigPath(packagePath: string, fileName: string) {
-    return path.join(packagePath, "config", fileName);
+function directoryExists(path: string) {
+    return fs.existsSync(path) && fs.lstatSync(path).isDirectory;
 }
 
 function formatText(
@@ -170,6 +170,12 @@ class PackageItems {
     readonly package: string;
 
     /**
+     * config
+     * path
+     */
+    readonly configDirectory: string;
+
+    /**
      * config/prettier.json
      * path
      */
@@ -197,7 +203,8 @@ class PackageItems {
         this.root = root;
 
         this.package = path.join(this.root, "package.json");
-        this.prettier = getConfigPath(this.root, "prettier.json");
+        this.configDirectory = path.join(this.root, "config");
+        this.prettier = path.join(this.configDirectory, "prettier.json");
         this.license = path.join(this.root, "LICENSE");
         this.changelog = path.join(this.root, "CHANGELOG.md");
         this.settings = path.join(this.root, ".vscode", "settings.json");
@@ -210,6 +217,98 @@ class PackageItems {
     writePackageJson(o: PackageJson) {
         writeJsonFile(this.package, o);
     }
+
+    /**
+     * add source package field values to this package
+     * overwrites the value if already present
+     * @param source 
+     * @param field 
+     * @param values 
+     * @returns 
+     */
+    addPackageJsonFieldValues(source: PackageItems, field: "scripts" | "devDependencies", values: string[]) {
+        const packageJsonSource = source.getPackageJson();
+
+        const packageJsonTarget = this.getPackageJson();
+
+        if (packageJsonSource === undefined) {
+            console.log(`ERROR: missing source package.json ${source.package}}`);
+            return;
+        }
+
+        if (packageJsonTarget === undefined) {
+            console.log(`ERROR: missing target package.json ${this.package}}`);
+            return;
+        }
+
+        values.forEach((name) => {
+            const present = packageJsonSource[field][name] !== undefined;
+
+
+            if (present) {
+                packageJsonTarget[field][name] = packageJsonSource[field][name];
+            } else {
+                console.log(`ERROR: script [${name}] not present in source`);
+            }
+        });
+
+        this.writePackageJson(packageJsonTarget);
+    }
+
+    /**
+     * add setting values from source to this package
+     * overwrites values if present
+     * @param source 
+     * @param values 
+     * @returns 
+     */
+    addSettingsJsonValues(source: PackageItems, values: string[]) {
+        const settingsSource = source.getSettingsJson();
+        const jsonTarget = this.getSettingsJson();
+
+        if (settingsSource === undefined) {
+            console.log(`ERROR: missing source settings.json ${source.settings}}`);
+            return;
+        }
+
+        if (jsonTarget === undefined) {
+            console.log(`ERROR: missing target settings.json ${this.settings}}`);
+            return;
+        }
+
+        values.forEach((name) => {
+            const present = settingsSource[name] !== undefined;
+
+
+            if (present) {
+                jsonTarget[name] = settingsSource[name];
+            } else {
+                console.log(`ERROR: script [${name}] not present in source`);
+            }
+        });
+
+        this.writeSettingsJson(jsonTarget);
+    }
+
+    /**
+     * add source package config file to this package
+     * overwrites if present
+     * @param source 
+     * @param name 
+     */
+    addConfigFile(source: PackageItems, name: string) {
+        const configSource = path.join(source.configDirectory, name);
+        const configTarget = path.join(this.configDirectory, name);
+
+        if (!directoryExists(this.configDirectory)) {
+            mkdirSync(this.configDirectory);
+        }
+
+        copyFileSync(configSource, configTarget);
+    }
+
+
+
 
     getPrettierConfigJson(): PrettierConfigJson | undefined {
         return getFileJson<PrettierConfigJson>(this.prettier);
@@ -406,24 +505,48 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     }
 }
 
+
+/**
+ * Add style related tooling to an existing package
+ * @param packageSource 
+ * @param packageTarget 
+ */
+function addStyle(packageSource: PackageItems, packageTarget: PackageItems) {
+    // copy over package.json scripts
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", ["style", "style-check", "prettier", "prettier-check"]);
+
+    // copy over package.json devDependencies
+    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", ["prettier"]);
+
+    // copy over config/prettier.json
+    packageTarget.addConfigFile(packageSource, "prettier.json");
+
+    // copy over .vscode/settings.json prettier config path
+    packageTarget.addSettingsJsonValues(packageSource, ["prettier.configPath"]);
+
+}
+
 function runAction(parameters: string[]) {
     const [action, otherPackage] = parameters;
 
-    const packagePathSelf = path.join(__dirname, "..");
-    const packagePathTarget = otherPackage || packagePathSelf;
+    const packagePathSource = path.join(__dirname, "..");
+    const packagePathTarget = otherPackage || packagePathSource;
 
-    const packageSelf = getPackageItemPaths(packagePathSelf);
+    const packageSource = getPackageItemPaths(packagePathSource);
     const packageTarget = getPackageItemPaths(packagePathTarget);
 
     switch (action) {
         case "check":
-            checkPackage(packageSelf, packageTarget);
+            checkPackage(packageSource, packageTarget);
             break;
         case "update":
-            updatePackage(packageSelf, packageTarget);
+            updatePackage(packageSource, packageTarget);
             break;
         case "environment":
             checkEnvironment();
+            break;
+        case "add-style":
+            addStyle(packageSource, packageTarget);
             break;
         default:
             console.log(`invalid action: ${action}`);
