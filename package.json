@@ -13,6 +13,7 @@
         "doc": "./doc",
         "test": "./test"
     },
+    "engines": { "node": ">=16.13", "npm": ">=8.3"},
     "scripts": {
         "prepack": "npm run build && npm run doc && npm run test",
         "build": "npm run style && npm run lint && npm run clean && npm run compile",
