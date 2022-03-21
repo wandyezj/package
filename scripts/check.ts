@@ -221,18 +221,24 @@ class PackageItems {
     /**
      * add source package field values to this package
      * overwrites the value if already present
-     * @param source 
-     * @param field 
-     * @param values 
-     * @returns 
+     * @param source
+     * @param field
+     * @param values
+     * @returns
      */
-    addPackageJsonFieldValues(source: PackageItems, field: "scripts" | "devDependencies", values: string[]) {
+    addPackageJsonFieldValues(
+        source: PackageItems,
+        field: "scripts" | "devDependencies",
+        values: string[]
+    ) {
         const packageJsonSource = source.getPackageJson();
 
         const packageJsonTarget = this.getPackageJson();
 
         if (packageJsonSource === undefined) {
-            console.log(`ERROR: missing source package.json ${source.package}}`);
+            console.log(
+                `ERROR: missing source package.json ${source.package}}`
+            );
             return;
         }
 
@@ -243,7 +249,6 @@ class PackageItems {
 
         values.forEach((name) => {
             const present = packageJsonSource[field][name] !== undefined;
-
 
             if (present) {
                 packageJsonTarget[field][name] = packageJsonSource[field][name];
@@ -258,27 +263,30 @@ class PackageItems {
     /**
      * add setting values from source to this package
      * overwrites values if present
-     * @param source 
-     * @param values 
-     * @returns 
+     * @param source
+     * @param values
+     * @returns
      */
     addSettingsJsonValues(source: PackageItems, values: string[]) {
         const settingsSource = source.getSettingsJson();
         const jsonTarget = this.getSettingsJson();
 
         if (settingsSource === undefined) {
-            console.log(`ERROR: missing source settings.json ${source.settings}}`);
+            console.log(
+                `ERROR: missing source settings.json ${source.settings}}`
+            );
             return;
         }
 
         if (jsonTarget === undefined) {
-            console.log(`ERROR: missing target settings.json ${this.settings}}`);
+            console.log(
+                `ERROR: missing target settings.json ${this.settings}}`
+            );
             return;
         }
 
         values.forEach((name) => {
             const present = settingsSource[name] !== undefined;
-
 
             if (present) {
                 jsonTarget[name] = settingsSource[name];
@@ -293,8 +301,8 @@ class PackageItems {
     /**
      * add source package config file to this package
      * overwrites if present
-     * @param source 
-     * @param name 
+     * @param source
+     * @param name
      */
     addConfigFile(source: PackageItems, name: string) {
         const configSource = path.join(source.configDirectory, name);
@@ -306,9 +314,6 @@ class PackageItems {
 
         copyFileSync(configSource, configTarget);
     }
-
-
-
 
     getPrettierConfigJson(): PrettierConfigJson | undefined {
         return getFileJson<PrettierConfigJson>(this.prettier);
@@ -505,25 +510,60 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     }
 }
 
-
 /**
  * Add style related tooling to an existing package
- * @param packageSource 
- * @param packageTarget 
+ * @param packageSource
+ * @param packageTarget
  */
 function addStyle(packageSource: PackageItems, packageTarget: PackageItems) {
     // copy over package.json scripts
-    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", ["style", "style-check", "prettier", "prettier-windows", "prettier-check",]);
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", [
+        "style",
+        "style-check",
+        "prettier",
+        "prettier-windows",
+        "prettier-check",
+    ]);
 
     // copy over package.json devDependencies
-    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", ["prettier"]);
+    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", [
+        "prettier",
+    ]);
 
-    // copy over config/prettier.json
+    // copy over config
     packageTarget.addConfigFile(packageSource, "prettier.json");
 
-    // copy over .vscode/settings.json prettier config path
+    // copy over .vscode/settings.json settings
     packageTarget.addSettingsJsonValues(packageSource, ["prettier.configPath"]);
+}
 
+/**
+ * Add lint related tooling to an existing package
+ * @param packageSource
+ * @param packageTarget
+ */
+function addLint(packageSource: PackageItems, packageTarget: PackageItems) {
+    // copy over package.json scripts
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", [
+        "lint",
+        "lint-fix",
+        "eslint",
+        "eslint-windows",
+        "eslint-fix",
+    ]);
+
+    // copy over package.json devDependencies
+    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", [
+        "eslint",
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser",
+    ]);
+
+    // copy over config
+    packageTarget.addConfigFile(packageSource, "eslint.json");
+
+    // copy over .vscode/settings.json settings
+    packageTarget.addSettingsJsonValues(packageSource, ["eslint.options"]);
 }
 
 function runAction(parameters: string[]) {
@@ -547,6 +587,9 @@ function runAction(parameters: string[]) {
             break;
         case "add-style":
             addStyle(packageSource, packageTarget);
+            break;
+        case "add-lint":
+            addLint(packageSource, packageTarget);
             break;
         default:
             console.log(`invalid action: ${action}`);
