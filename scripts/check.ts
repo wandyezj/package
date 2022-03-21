@@ -513,7 +513,7 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
  */
 function addStyle(packageSource: PackageItems, packageTarget: PackageItems) {
     // copy over package.json scripts
-    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", ["style", "style-check", "prettier", "prettier-check"]);
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", ["style", "style-check", "prettier", "prettier-windows", "prettier-check",]);
 
     // copy over package.json devDependencies
     packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", ["prettier"]);
