@@ -196,6 +196,11 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 // prettier-ignore
 ```
 
+## eslint rules
+
+- https://eslint.org/docs/rules/eqeqeq
+    - `==` double equals leads to bugs, double equals is usually a mistake.
+
 ## TS Doc
 
 [@packageDocumentation](https://api-extractor.com/pages/tsdoc/tag_packagedocumentation/)
