@@ -13,6 +13,7 @@
     "plugins": ["@typescript-eslint"],
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "rules": {
+        "eqeqeq": ["error", "always"],
         "indent": ["warn", 4, { "SwitchCase": 1 }],
         "linebreak-style": ["warn", "unix"],
         "quotes": [
