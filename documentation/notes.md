@@ -242,3 +242,9 @@ Node currently (2022-03-01) has significantly better performance on Linux than o
 Ubuntu is a ubiquitous distribution and available as a build pool, and in WSL.
 
 Commands use linux paths. On Windows WSL can be used to execute commands.
+
+## NPM Commands
+
+Show all published versions of a package.
+
+> npm show @wandyezj/package@* version
