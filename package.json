@@ -19,6 +19,7 @@
         "build": "npm run style && npm run lint && npm run clean && npm run compile",
         "doc": "npm run doc-extract && npm run doc-document",
         "test": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js",
+        "test-windows": ".\\node_modules\\.bin\\jest --no-cache --config ./config/jest.config.js",
         "test-coverage": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js --coverage",
         "style": "npm run prettier",
         "style-windows": "npm run prettier-windows",
