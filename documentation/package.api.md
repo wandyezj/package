@@ -4,11 +4,7 @@
 
 ```ts
 
-// Warning: (ae-missing-release-tag) "f" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function f(): string;
-
-// (No @packageDocumentation comment for this package)
+// @beta
+export function hello(): string;
 
 ```
