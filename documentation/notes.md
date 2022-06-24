@@ -243,7 +243,6 @@ Ubuntu is a ubiquitous distribution and available as a build pool, and in WSL.
 
 Commands use linux paths. On Windows WSL can be used to execute commands.
 
-
 ## Windows Subsystem for Linux
 
 wls can be installed and used to run and install node.
@@ -252,3 +251,52 @@ wls can be installed and used to run and install node.
 
 This can be used to run linux commands on Windows.
 
+## NPM Commands
+
+Show all published versions of a package.
+
+> npm show @wandyezj/package@* version
+
+## Comments on Common Packages
+
+Generally, it's preferable to limit the number of dependencies.
+
+### express
+
+For simple servers express can easily be replaced with node 'http'.
+
+Example express alternative using pure node.
+
+```typescript
+import http from "http";
+import path from "path";
+import * as fs from "fs";
+
+// all valid resources stored in a resources folder.
+
+// don't bother with express just write a simple node server.
+export function startServer(port: number, serveResources: string[]) {
+    const server = http.createServer((req, res) => {
+        const {url} =  req;
+
+        const found = serveResources.filter((value) => `/${value}` === url );
+
+        if (found.length === 1) {
+            const fileName = found[0];
+
+            const filePath = path.join(__dirname + `/resources/${fileName}`);
+            const fileData = fs.readFileSync(filePath)
+
+            res.write(fileData);
+        } else {
+            res.write(`Not Found\n\nValid Resources:\n\n${serveResources.join("\n")}`);
+        }
+
+        res.end();
+    });
+
+    server.listen(port);
+
+    return server;
+}
+```

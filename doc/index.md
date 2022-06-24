@@ -8,5 +8,5 @@
 
 |  Package | Description |
 |  --- | --- |
-|  [package](./package.md) |  |
+|  [package](./package.md) | Package Documentation |
 
