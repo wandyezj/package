@@ -242,3 +242,13 @@ Node currently (2022-03-01) has significantly better performance on Linux than o
 Ubuntu is a ubiquitous distribution and available as a build pool, and in WSL.
 
 Commands use linux paths. On Windows WSL can be used to execute commands.
+
+
+## Windows Subsystem for Linux
+
+wls can be installed and used to run and install node.
+
+`wsl -- <command>` executes a command in the default linux environment.
+
+This can be used to run linux commands on Windows.
+
