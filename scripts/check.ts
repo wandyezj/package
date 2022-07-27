@@ -592,7 +592,9 @@ function runAction(parameters: string[]) {
             addLint(packageSource, packageTarget);
             break;
         default:
-            console.log(`invalid action: ${action}`);
+            console.log(`invalid action: ${action}
+usage: check
+            `);
             break;
     }
 }

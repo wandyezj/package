@@ -154,9 +154,9 @@ This package is intended to work on the laster node version and included NPM ver
 
 ## NPM Version Issues
 
-`npm@7.5.4` does not allow script execution with unit style paths as in the package.json instead revert to an older version of npm that allows this behavior `npm install -g npm@6.14.9`
+`npm@7.5.4` does not allow script execution with unix style paths as used in the `package.json`. To support this behavior Downgrade `npm install -g npm@6.14.9` or Upgrade to at least `npm@8.15.0` to support this behavior.
 
-The above shows the importance of versioning tools together.
+The npm example highlights the importance of versioning tools together.
 
 ## NPM Script Search Path
 
