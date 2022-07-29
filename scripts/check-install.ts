@@ -38,7 +38,6 @@ interface VersionRequired {
 }
 
 interface RequiredVersionTool extends VersionRequired {
-
     /**
      * name of the tool
      */
@@ -61,7 +60,6 @@ interface RequiredVersionTool extends VersionRequired {
  * node version required
  */
 const requiredVersionNode: RequiredVersionTool = {
-
     name: "node",
 
     majorRequired: 16,
@@ -80,17 +78,17 @@ const requiredVersionNode: RequiredVersionTool = {
 
     getVersion: () => {
         const versionCommand = "node --version";
-        const versionRegex =  /v(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
+        const versionRegex =
+            /v(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
         const version = getToolVersion(versionCommand, versionRegex);
         return version;
-    }
+    },
 };
 
 /**
  * npm version required
  */
 const requiredVersionNpm: RequiredVersionTool = {
-
     name: "npm",
 
     majorRequired: 8,
@@ -109,18 +107,16 @@ const requiredVersionNpm: RequiredVersionTool = {
 
     getVersion: () => {
         const versionCommand = "npm --version";
-        const versionRegex =  /(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
+        const versionRegex = /(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
         const version = getToolVersion(versionCommand, versionRegex);
         return version;
-    }
+    },
 };
-
 
 const allRequiredVersions: RequiredVersionTool[] = [
     requiredVersionNode,
     requiredVersionNpm,
 ];
-
 
 function isRequiredVersion(
     required: VersionRequired,
@@ -140,9 +136,7 @@ function isRequiredVersion(
 }
 
 function versionMinimum(required: VersionRequired): string {
-
-    const { majorRequired, minorMinimum, revisionMinimum } =
-        required;
+    const { majorRequired, minorMinimum, revisionMinimum } = required;
     const s = `v${majorRequired}.${minorMinimum}.${revisionMinimum} (requiredMajor.minimumMinor.minimumRevision)`;
     return s;
 }
@@ -166,20 +160,17 @@ function getNumberFromGroup(
     return n;
 }
 
-function getToolVersion(versionCommand: string, regex: RegExp):
-    | {
-        major: number;
-        minor: number;
-        revision: number;
-    }
-    | undefined {
+function getToolVersion(
+    versionCommand: string,
+    regex: RegExp
+): Version | undefined {
     const data = execSync(versionCommand, {
         timeout: 5 * 1000,
         encoding: "utf-8",
         windowsHide: true,
         // ignore error stream because its annoying
         // stdin stdout stderr
-        stdio: [ 'ignore', 'pipe', 'ignore']
+        stdio: ["ignore", "pipe", "ignore"],
     });
 
     const matches: RegExpExecArray | null = regex.exec(data);
@@ -213,14 +204,14 @@ function checkTools(parameters: string[]) {
         return 1;
     }
 
-    const allRequired = allRequiredVersions.map( tool=> {
+    const allRequired = allRequiredVersions.map((tool) => {
         const version = tool.getVersion();
         const pass = tool.isRequired(version);
 
-        let message:string | undefined = undefined;
+        let message: string | undefined = undefined;
 
         if (version === undefined) {
-            message = "unable to get version"
+            message = "unable to get version";
         } else if (!pass) {
             const actual = `${version.major}.${version.minor}.${version.revision}`;
             message = `required version not present. Expected: ${requiredVersionNode.versionMinimum()} Found: ${actual}`;
@@ -231,21 +222,20 @@ function checkTools(parameters: string[]) {
         if (message) {
             console.log(`\t${message}`);
         }
-        
+
         return {
-            pass
-        }
+            pass,
+        };
     });
 
-
     const allPass = allRequired.reduce((previousValue, currentValue) => {
-        return previousValue && currentValue.pass
+        return previousValue && currentValue.pass;
     }, true);
 
     if (allPass) {
         return 0;
     } else {
-        console.log("\nERROR: A required tool is missing.")
+        console.log("\nERROR: A required tool is missing.");
     }
 
     return 1;
