@@ -36,6 +36,7 @@
 
         "check": "./node_modules/.bin/ts-node scripts/check.ts",
         "check-install": "./node_modules/.bin/ts-node scripts/check-install.ts",
+        "check-environment": "./node_modules/.bin/ts-node scripts/check-environment.ts",
         "start": "./node_modules/.bin/ts-node test/main.ts"
     },
     "repository": {

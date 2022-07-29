@@ -28,7 +28,7 @@ jobs:
     - name: Check
       env:
         BRANCH_NAME: ${{ github.ref }}
-      run: npm run check environment --if-present
+      run: npm run check-environment --if-present
 # Check Code
     # Style Check ensures that code is consistently styled
     - name: Style Check

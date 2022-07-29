@@ -1,84 +1,6 @@
 import path from "path";
 import fs, { writeFileSync, copyFileSync, mkdirSync } from "fs";
-import * as child_process from "child_process";
 import prettier from "prettier";
-
-//
-// Check Environment
-//
-
-function env(variable: string): string {
-    const value = process.env[variable];
-    return value === undefined ? "" : value;
-}
-
-interface Environment {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    GITHUB_REF?: string;
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    GITHUB_ACTOR?: string;
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    GITHUB_EVENT_NAME?: string;
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    GITHUB_HEAD_REF?: string;
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    GITHUB_WORKSPACE?: string;
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    BRANCH_NAME?: string;
-}
-
-function getEnvironmentVariables(): Environment {
-    const names: (keyof Environment)[] = [
-        "GITHUB_REF",
-        "GITHUB_ACTOR",
-        "GITHUB_EVENT_NAME",
-        "GITHUB_HEAD_REF",
-        "GITHUB_WORKSPACE",
-        "BRANCH_NAME",
-    ];
-
-    const o: Environment = {};
-    names.forEach((name) => {
-        o[name] = env(name);
-    });
-
-    return o;
-}
-
-function checkEnvironment(): void {
-    console.log("Check Environment");
-    const variables = getEnvironmentVariables();
-    console.log("\n\n");
-    console.log(variables);
-    console.log("\n\n");
-
-    const versionData = executeCommand(`npm --version`);
-    console.log(versionData);
-    console.log("\n\n");
-}
-
-function executeCommand(
-    command: string,
-    workingDirectory?: string,
-    ignoreError?: boolean
-): string {
-    console.log(command);
-
-    const options: child_process.ExecSyncOptions = { encoding: "utf8" };
-    if (workingDirectory !== undefined) {
-        options.cwd = workingDirectory;
-    }
-    if (ignoreError !== undefined && ignoreError) {
-        options.stdio = ["ignore", "pipe", "ignore"];
-    }
-
-    return child_process.execSync(command, options).toString();
-}
 
 //
 // Check Package
@@ -581,9 +503,6 @@ function runAction(parameters: string[]) {
             break;
         case "update":
             updatePackage(packageSource, packageTarget);
-            break;
-        case "environment":
-            checkEnvironment();
             break;
         case "add-style":
             addStyle(packageSource, packageTarget);
