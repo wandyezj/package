@@ -110,6 +110,9 @@ Libraries for solving common problems
 - [terser](https://terser.org/)
     - JavaScript minifier
 
+- [Playwright](https://playwright.dev/)
+    - end to end testing
+
 ### Visual Studio Code Extensions
 
 - ESLint
