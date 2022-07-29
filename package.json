@@ -35,6 +35,7 @@
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
 
         "check": "./node_modules/.bin/ts-node scripts/check.ts",
+        "check-install": "./node_modules/.bin/ts-node scripts/check-install.ts",
         "start": "./node_modules/.bin/ts-node test/main.ts"
     },
     "repository": {
