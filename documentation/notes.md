@@ -236,6 +236,11 @@ Strong Types aid development.
 An alternative to TypeScript is [JSDOC](https://jsdoc.app/) tags.
 
 
+## GitHub
+
+- [.github/CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+- [.github/CONTRIBUTING](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors)
+
 ## Operating System
 
 Ubuntu
