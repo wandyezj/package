@@ -1,7 +1,6 @@
 import path from "path";
 import fs, { writeFileSync, copyFileSync, mkdirSync } from "fs";
 import prettier from "prettier";
-
 //
 // Check Package
 //
@@ -98,6 +97,12 @@ class PackageItems {
     readonly configDirectory: string;
 
     /**
+     * scripts
+     * path
+     */
+    readonly scriptsDirectory: string;
+
+    /**
      * config/prettier.json
      * path
      */
@@ -126,6 +131,7 @@ class PackageItems {
 
         this.package = path.join(this.root, "package.json");
         this.configDirectory = path.join(this.root, "config");
+        this.scriptsDirectory = path.join(this.root, "scripts");
         this.prettier = path.join(this.configDirectory, "prettier.json");
         this.license = path.join(this.root, "LICENSE");
         this.changelog = path.join(this.root, "CHANGELOG.md");
@@ -247,6 +253,19 @@ class PackageItems {
 
     writeSettingsJson(o: SettingsJson) {
         writeJsonFile(this.settings, o);
+    }
+
+    /**
+     * copes over scripts from source
+     * @param source 
+     * @param names 
+     */
+    addScripts(source: PackageItems, names: string[]) {
+        names.forEach((name) => {
+            const from = path.join(source.scriptsDirectory, name);
+            const to = path.join(this.scriptsDirectory, name);
+            fs.copyFileSync(from, to)
+        });
     }
 }
 
@@ -443,7 +462,6 @@ function addStyle(packageSource: PackageItems, packageTarget: PackageItems) {
         "style",
         "style-check",
         "prettier",
-        "prettier-windows",
         "prettier-check",
     ]);
 
@@ -470,7 +488,6 @@ function addLint(packageSource: PackageItems, packageTarget: PackageItems) {
         "lint",
         "lint-fix",
         "eslint",
-        "eslint-windows",
         "eslint-fix",
     ]);
 
@@ -486,6 +503,22 @@ function addLint(packageSource: PackageItems, packageTarget: PackageItems) {
 
     // copy over .vscode/settings.json settings
     packageTarget.addSettingsJsonValues(packageSource, ["eslint.options"]);
+}
+
+
+/**
+ * Add lint related tooling to an existing package
+ * @param packageSource
+ * @param packageTarget
+ */
+function addClean(packageSource: PackageItems, packageTarget: PackageItems) {
+    // copy over package.json scripts
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", [
+        "clean",
+    ]);
+
+    // copy over script
+    packageTarget.addScripts(packageSource, ["clean.js"]);
 }
 
 function runAction(parameters: string[]) {
@@ -510,6 +543,9 @@ function runAction(parameters: string[]) {
         case "add-lint":
             addLint(packageSource, packageTarget);
             break;
+        case "add-clean":
+            addClean(packageSource, packageTarget);
+            break;
         default:
             console.log(`invalid action: ${action}
 usage: check
@@ -526,7 +562,7 @@ runAction(parameters);
 Clean up things in the package that are only for reference
 
 - make src/index blank
-- delete sfc/f.ts
+- delete src/f.ts
 - clear documentation to only contain deploy.md
 - clear README
 */

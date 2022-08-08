@@ -16,7 +16,7 @@ if (parameters.length !== 1) {
 
 const [target] = parameters;
 
-// check that target exists
+// check that target exists before removing it.
 if (fs.existsSync(target)) {
     fs.rmSync(target, { recursive: true });
 }
