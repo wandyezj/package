@@ -257,14 +257,14 @@ class PackageItems {
 
     /**
      * copes over scripts from source
-     * @param source 
-     * @param names 
+     * @param source
+     * @param names
      */
     addScripts(source: PackageItems, names: string[]) {
         names.forEach((name) => {
             const from = path.join(source.scriptsDirectory, name);
             const to = path.join(this.scriptsDirectory, name);
-            fs.copyFileSync(from, to)
+            fs.copyFileSync(from, to);
         });
     }
 }
@@ -504,7 +504,6 @@ function addLint(packageSource: PackageItems, packageTarget: PackageItems) {
     // copy over .vscode/settings.json settings
     packageTarget.addSettingsJsonValues(packageSource, ["eslint.options"]);
 }
-
 
 /**
  * Add lint related tooling to an existing package
