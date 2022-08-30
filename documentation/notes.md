@@ -365,4 +365,17 @@ async function getUrl(url: string) {
     );
 }
 
+/**
+ * fetches data at url or throws
+ */
+async function fetchFileDataAtUrl(url: string): Promise<string> {
+    const {status, buffer} = await getUrl(url);
+
+    if (status === 200) {
+        return (await buffer()).toString();
+    }
+
+    throw new Error(`Error status ${status} when retrieving url ${url}`);
+}
+
 ```
