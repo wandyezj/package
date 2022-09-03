@@ -14,7 +14,7 @@
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "rules": {
         "eqeqeq": ["error", "always"],
-        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "indent": "off",
         "linebreak-style": ["warn", "unix"],
         "quotes": [
             "warn",
