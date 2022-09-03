@@ -269,6 +269,8 @@ Show all published versions of a package.
 
 Generally, it's preferable to limit the number of dependencies.
 
+Each dependency is another security vulnerability especially if using them in build scripts.
+
 ### express
 
 For simple servers express can easily be replaced with node 'http'.
@@ -307,4 +309,73 @@ export function startServer(port: number, serveResources: string[]) {
 
     return server;
 }
+```
+
+### fs-extra
+
+Unneeded, use built in node 'fs' functions.
+
+```typescript
+
+// just use node built in
+fs.rmSync(path, {recursive: true});
+
+fs.cpSync(from, to);
+```
+
+### shelljs
+
+Unneeded, use built in node 'child_process' functions.
+
+
+### fetch
+
+```typescript
+import https from "https";
+
+// mirrors what is used from fetch in node-fetch
+// https://nodejs.org/dist/latest-v16.x/docs/api/https.html
+async function getUrl(url: string) {
+    return new Promise<{ status: number; buffer: () => Promise<string> }>(
+        (resolve, reject) => {
+            https.get(url, (response) => {
+                const statusCode = response.statusCode;
+
+                response.on("error", (err) => {
+                    reject(err);
+                });
+
+                const dataBuffer = new Promise<string>((resolveBuffer) => {
+                    let data = "";
+                    response.on("data", (chunk) => {
+                        data += chunk;
+                    });
+
+                    response.on("end", () => {
+                        resolveBuffer(data);
+                    });
+                });
+
+                resolve({
+                    status: statusCode || -1,
+                    buffer: () => dataBuffer,
+                });
+            });
+        }
+    );
+}
+
+/**
+ * fetches data at url or throws
+ */
+async function fetchFileDataAtUrl(url: string): Promise<string> {
+    const {status, buffer} = await getUrl(url);
+
+    if (status === 200) {
+        return (await buffer()).toString();
+    }
+
+    throw new Error(`Error status ${status} when retrieving url ${url}`);
+}
+
 ```

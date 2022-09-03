@@ -8,12 +8,10 @@
     "files": [
         "dist/*"
     ],
-    "directories": {
-        "lib": "dist",
-        "doc": "./doc",
-        "test": "./test"
+    "engines": {
+        "node": ">=16.17",
+        "npm": ">=8.15"
     },
-    "engines": { "node": ">=16.13", "npm": ">=8.3"},
     "scripts": {
         "prepack": "npm run build && npm run doc && npm run test",
         "build": "npm run style && npm run lint && npm run clean && npm run compile",
@@ -24,12 +22,11 @@
         "style-check": "./node_modules/.bin/prettier --config ./config/prettier.json  --check \"@(src|test)/**/*.@(ts|js|md|html|css|json)\"",
         "lint": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc \"@(src|test|scripts)/**/*.@(ts|js)\"",
         "lint-fix": "./node_modules/.bin/eslint --config ./config/eslint.json --no-eslintrc --fix \"@(src|test|scripts)/**/*.@(ts|js)\"",
-        "clean":"node ./scripts/clean.js dist && node ./scripts/clean.js temp",
+        "clean": "node ./scripts/clean.js dist && node ./scripts/clean.js temp",
         "compile": "./node_modules/.bin/tsc --project ./tsconfig.json",
         "api-extractor": "./node_modules/.bin/api-extractor",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
-
         "check": "./node_modules/.bin/ts-node scripts/check.ts",
         "check-install": "./node_modules/.bin/ts-node scripts/check-install.ts",
         "check-environment": "./node_modules/.bin/ts-node scripts/check-environment.ts",
@@ -39,7 +36,10 @@
         "type": "git",
         "url": "git+https://github.com/wandyezj/package.git"
     },
-    "author": "wandyezj",
+    "author": {
+        "name": "wandyezj",
+        "url": "http://wandyez.github.io/"
+    },
     "license": "Unlicense",
     "bugs": {
         "url": "https://github.com/wandyezj/package/issues"
