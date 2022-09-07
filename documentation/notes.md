@@ -24,6 +24,15 @@ Designed for TypeScript NPM libraries.
 - test
     - package tests
 
+## package.json
+
+[npm package.json field documentation](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
+
+Additional Fields
+
+- `types`
+    - [Tells TypeScript where to find types](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)
+
 ## Commands
 
 ### build
