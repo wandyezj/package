@@ -4,7 +4,7 @@
     "description": "Simple Package Template",
     "private": true,
     "main": "./dist/index.js",
-    "typings": "./dist/index.d.ts",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist/*"
     ],
@@ -30,6 +30,7 @@
         "check": "./node_modules/.bin/ts-node scripts/check.ts",
         "check-install": "./node_modules/.bin/ts-node scripts/check-install.ts",
         "check-environment": "./node_modules/.bin/ts-node scripts/check-environment.ts",
+        "package-update": "./node_modules/.bin/ts-node scripts/update.ts",
         "start": "./node_modules/.bin/ts-node test/main.ts"
     },
     "repository": {
