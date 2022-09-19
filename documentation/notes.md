@@ -28,10 +28,15 @@ Designed for TypeScript NPM libraries.
 
 [npm package.json field documentation](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
 
-Additional Fields
+### Convention
+
+For packages that are not published the following field should be present `"private:":true` and the package version should be set to `0.0.0` to help identify that this is simply a NPM based project and not a published package.
+
+### Additional Fields
 
 - `types`
     - [Tells TypeScript where to find types](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)
+
 
 ## Commands
 

@@ -148,7 +148,7 @@ function updateVscodeExtensionRecommendations(
 ) {
     if (targetPackage.extensionsJson !== undefined) {
         const obsoleteName = "coenraads.bracket-pair-colorizer";
-        targetPackage.extensionsJson.recommendations = targetPackage.extensionsJson.recommendations.filter( (name) => name != obsoleteName);
+        targetPackage.extensionsJson.recommendations = targetPackage.extensionsJson.recommendations.filter( (name) => name !== obsoleteName);
     }
 }
 
