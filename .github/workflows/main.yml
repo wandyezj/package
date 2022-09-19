@@ -22,8 +22,14 @@ jobs:
       with:
         # Match Development Node Version
         node-version: '16.x'
+
+    - name: Node Version
+      run: node --version
+    - name: NPM Version
+      run: npm --version
+
     - name: Clean Install
-      run: npm ci
+      run: npm i
 # Check Environment
     - name: Check
       env:
