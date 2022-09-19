@@ -4,10 +4,11 @@
 name: Main
 
 on:
-# main branch CI
+  # main branch CI
   push:
     branches: [ main ]
-# Run on pull request
+
+  # Run on pull request
   pull_request:
     types: [ opened, synchronize ]
 
@@ -23,25 +24,29 @@ jobs:
         # Match Development Node Version
         node-version: '16.x'
 
+    # Tool Versions
     - name: Node Version
       run: node --version
     - name: NPM Version
       run: npm --version
 
     - name: Clean Install
-      run: npm i
-# Check Environment
+      run: npm ci
+
+    # Check Environment
     - name: Check
       env:
         BRANCH_NAME: ${{ github.ref }}
       run: npm run check-environment --if-present
-# Check Code
+
+    # Check Code
     # Style Check ensures that code is consistently styled
     - name: Style Check
       run: npm run style-check --if-present
     - name: Lint Check
       run: npm run lint --if-present
-# Build
+
+    # Build
     - name: Clean
       run: npm run clean --if-present
     - name: Compile
