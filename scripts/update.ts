@@ -11,13 +11,12 @@ import * as path from "path";
 /**
  * class to describe a NPM package
  */
- class Package {
+class Package {
     readonly packageJsonPath: string;
     packageJson: PackageJson;
 
     readonly directoryScripts: string;
     readonly fileScriptClean: string;
-
 
     readonly extensionsJsonPath: string;
     /**
@@ -37,22 +36,17 @@ import * as path from "path";
         this.directoryScripts = path.join(directoryRoot, "scripts");
         this.fileScriptClean = path.join(this.directoryScripts, "clean.js");
 
-
         this.extensionsJsonPath = path.join(this.directoryRoot, ".vscode", "extensions.json");
         if (fileExists(this.extensionsJsonPath)) {
             this.extensionsJson = readJsonFile<ExtensionsJson>(this.extensionsJsonPath);
         }
-
     }
 
     packageJsonScripts(): string[] {
-        const packageScripts = Object.getOwnPropertyNames(
-            this.packageJson.scripts
-        );
+        const packageScripts = Object.getOwnPropertyNames(this.packageJson.scripts);
         return packageScripts;
     }
 }
-
 
 /**
  * do all the automatic updates to a package
@@ -113,7 +107,6 @@ function update() {
 }
 
 function writeFormattedJsonObject(object: unknown, filePath: string) {
-    
     const text = formatJson(JSON.stringify(object));
     fs.writeFileSync(filePath, text);
 }
@@ -134,33 +127,22 @@ function doScriptInventory(targetPackage: Package, ownPackage: Package) {
         }
     });
 
-    console.log(
-        `\nScripts Missing [${scriptsMissing.length}]\n\n${scriptsMissing.join(
-            "\n"
-        )}`
-    );
+    console.log(`\nScripts Missing [${scriptsMissing.length}]\n\n${scriptsMissing.join("\n")}`);
 }
 
 // Specific Update Functions
 
-function updateVscodeExtensionRecommendations(
-    targetPackage: Package,
-) {
+function updateVscodeExtensionRecommendations(targetPackage: Package) {
     if (targetPackage.extensionsJson !== undefined) {
         const obsoleteName = "coenraads.bracket-pair-colorizer";
-        targetPackage.extensionsJson.recommendations = targetPackage.extensionsJson.recommendations.filter( (name) => name !== obsoleteName);
+        targetPackage.extensionsJson.recommendations =
+            targetPackage.extensionsJson.recommendations.filter((name) => name !== obsoleteName);
     }
 }
 
-function updateScriptsAddStyleCheck(
-    targetPackage: Package,
-    ownPackage: Package
-) {
+function updateScriptsAddStyleCheck(targetPackage: Package, ownPackage: Package) {
     const targetPackageScripts = targetPackage.packageJsonScripts();
-    if (
-        targetPackageScripts.includes("style") &&
-        !targetPackageScripts.includes("style-check")
-    ) {
+    if (targetPackageScripts.includes("style") && !targetPackageScripts.includes("style-check")) {
         console.log(`add package.json script: style-check`);
         targetPackage.packageJson.scripts["style-check"] =
             ownPackage.packageJson.scripts["style-check"];
@@ -168,9 +150,7 @@ function updateScriptsAddStyleCheck(
 }
 
 function updatePackageScriptsDiscardWindowsScripts(targetPackage: Package) {
-    const targetPackageScripts = Object.getOwnPropertyNames(
-        targetPackage.packageJson.scripts
-    );
+    const targetPackageScripts = Object.getOwnPropertyNames(targetPackage.packageJson.scripts);
 
     targetPackageScripts.forEach((name) => {
         if (name.endsWith("-windows")) {
@@ -190,9 +170,7 @@ function updateLicense(targetPackage: Package, ownPackage: Package) {
     const targetLicense = targetPackage.packageJson.license;
     const ownLicense = ownPackage.packageJson.license;
     if (targetLicense !== ownLicense && targetLicense === "Unlicensed") {
-        console.log(
-            `update package.json license: from ${targetLicense} to ${ownLicense}`
-        );
+        console.log(`update package.json license: from ${targetLicense} to ${ownLicense}`);
         targetPackage.packageJson.license = ownPackage.packageJson.license;
     }
 }
@@ -219,12 +197,10 @@ function updateScriptClean(targetPackage: Package, ownPackage: Package) {
     if (targetPackageScripts.includes("clean")) {
         if (validTargets.includes(targetPackage.packageJson.scripts["clean"])) {
             console.log("update package.json script: clean");
-            targetPackage.packageJson.scripts["clean"] =
-                ownPackage.packageJson.scripts["clean"];
+            targetPackage.packageJson.scripts["clean"] = ownPackage.packageJson.scripts["clean"];
 
             // make scripts directory
-            const targetPackageScriptsDirectoryPath =
-                targetPackage.directoryScripts;
+            const targetPackageScriptsDirectoryPath = targetPackage.directoryScripts;
 
             if (!directoryExits(targetPackageScriptsDirectoryPath)) {
                 console.log("create package directory: scripts");
@@ -238,10 +214,7 @@ function updateScriptClean(targetPackage: Package, ownPackage: Package) {
             );
             if (!fileExists(targetPackageScriptsCleanPath)) {
                 console.log("create package file: scripts/clean.js");
-                fs.copyFileSync(
-                    ownPackage.fileScriptClean,
-                    targetPackage.fileScriptClean
-                );
+                fs.copyFileSync(ownPackage.fileScriptClean, targetPackage.fileScriptClean);
             }
         }
     }
@@ -254,22 +227,13 @@ function updateScriptClean(targetPackage: Package, ownPackage: Package) {
  * @param targetPackage
  * @param overwrites array of [keep, copyOver]
  */
-function updateOverrideScripts(
-    targetPackage: Package,
-    overwrites: [string, string][]
-) {
-    const targetPackageScripts = Object.getOwnPropertyNames(
-        targetPackage.packageJson.scripts
-    );
+function updateOverrideScripts(targetPackage: Package, overwrites: [string, string][]) {
+    const targetPackageScripts = Object.getOwnPropertyNames(targetPackage.packageJson.scripts);
 
     overwrites.forEach(([keep, copyOver]) => {
-        if (
-            targetPackageScripts.includes(keep) &&
-            targetPackageScripts.includes(copyOver)
-        ) {
+        if (targetPackageScripts.includes(keep) && targetPackageScripts.includes(copyOver)) {
             console.log(`${keep} = ${copyOver}`);
-            targetPackage.packageJson.scripts[keep] =
-                targetPackage.packageJson.scripts[copyOver];
+            targetPackage.packageJson.scripts[keep] = targetPackage.packageJson.scripts[copyOver];
 
             console.log(`delete package.json script: ${copyOver}`);
             delete targetPackage.packageJson.scripts[copyOver];
@@ -335,4 +299,3 @@ interface PackageJson {
 interface ExtensionsJson {
     recommendations: string[];
 }
-

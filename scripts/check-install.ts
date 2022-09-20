@@ -78,8 +78,7 @@ const requiredVersionNode: RequiredVersionTool = {
 
     getVersion: () => {
         const versionCommand = "node --version";
-        const versionRegex =
-            /v(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
+        const versionRegex = /v(?<major>\d+)\.(?<minor>\d+)\.(?<revision>\d+)/gm;
         const version = getToolVersion(versionCommand, versionRegex);
         return version;
     },
@@ -113,25 +112,16 @@ const requiredVersionNpm: RequiredVersionTool = {
     },
 };
 
-const allRequiredVersions: RequiredVersionTool[] = [
-    requiredVersionNode,
-    requiredVersionNpm,
-];
+const allRequiredVersions: RequiredVersionTool[] = [requiredVersionNode, requiredVersionNpm];
 
-function isRequiredVersion(
-    required: VersionRequired,
-    version: Version | undefined
-) {
+function isRequiredVersion(required: VersionRequired, version: Version | undefined) {
     if (version === undefined) {
         return false;
     }
 
     const { majorRequired, minorMinimum, revisionMinimum } = required;
     const { major, minor, revision } = version;
-    const passes =
-        major === majorRequired &&
-        minor >= minorMinimum &&
-        revision >= revisionMinimum;
+    const passes = major === majorRequired && minor >= minorMinimum && revision >= revisionMinimum;
     return passes;
 }
 
@@ -160,10 +150,7 @@ function getNumberFromGroup(
     return n;
 }
 
-function getToolVersion(
-    versionCommand: string,
-    regex: RegExp
-): Version | undefined {
+function getToolVersion(versionCommand: string, regex: RegExp): Version | undefined {
     const data = execSync(versionCommand, {
         timeout: 5 * 1000,
         encoding: "utf-8",
@@ -180,11 +167,7 @@ function getToolVersion(
         const minor = getNumberFromGroup(groups, "minor");
         const revision = getNumberFromGroup(groups, "revision");
 
-        if (
-            major === undefined ||
-            minor === undefined ||
-            revision === undefined
-        ) {
+        if (major === undefined || minor === undefined || revision === undefined) {
             return undefined;
         }
 

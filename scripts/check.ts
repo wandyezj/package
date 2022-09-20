@@ -164,9 +164,7 @@ class PackageItems {
         const packageJsonTarget = this.getPackageJson();
 
         if (packageJsonSource === undefined) {
-            console.log(
-                `ERROR: missing source package.json ${source.package}}`
-            );
+            console.log(`ERROR: missing source package.json ${source.package}}`);
             return;
         }
 
@@ -200,16 +198,12 @@ class PackageItems {
         const jsonTarget = this.getSettingsJson();
 
         if (settingsSource === undefined) {
-            console.log(
-                `ERROR: missing source settings.json ${source.settings}}`
-            );
+            console.log(`ERROR: missing source settings.json ${source.settings}}`);
             return;
         }
 
         if (jsonTarget === undefined) {
-            console.log(
-                `ERROR: missing target settings.json ${this.settings}}`
-            );
+            console.log(`ERROR: missing target settings.json ${this.settings}}`);
             return;
         }
 
@@ -297,17 +291,12 @@ function checkPrettierConfig(configPath: string): void {
         endOfLine: "lf",
     };
 
-    const properties = Object.getOwnPropertyNames(
-        expected
-    ) as (keyof PrettierConfigJson)[];
+    const properties = Object.getOwnPropertyNames(expected) as (keyof PrettierConfigJson)[];
 
     properties.forEach((name) => {
         const value = expected[name];
         const actual = config[name];
-        if (
-            typeof value !== typeof actual ||
-            JSON.stringify(value) !== JSON.stringify(actual)
-        ) {
+        if (typeof value !== typeof actual || JSON.stringify(value) !== JSON.stringify(actual)) {
             console.log(
                 `   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`
             );
@@ -331,9 +320,7 @@ function checkPackageJson(packagePathSelf: string, packagePathTarget: string) {
         console.log(`    WARNING: scripts is missing`);
     } else {
         const scriptNames = Object.getOwnPropertyNames(scripts);
-        const missing = scriptNamesExpected.filter(
-            (name) => !scriptNames.includes(name)
-        );
+        const missing = scriptNamesExpected.filter((name) => !scriptNames.includes(name));
 
         missing.forEach((name) => {
             console.log(`    WARNING: missing script: [${name}]`);
@@ -363,13 +350,9 @@ function checkPackageJson(packagePathSelf: string, packagePathTarget: string) {
             const actual = devDependencies[name];
 
             if (value !== undefined && actual === undefined) {
-                console.log(
-                    `    ERROR: devDependencies is missing "${name}": "${value}",`
-                );
+                console.log(`    ERROR: devDependencies is missing "${name}": "${value}",`);
             } else if (value !== actual) {
-                console.log(
-                    `    WARNING: devDependencies: expected "${name}": "${value}",`
-                );
+                console.log(`    WARNING: devDependencies: expected "${name}": "${value}",`);
             }
         });
     }
@@ -390,29 +373,17 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     const packageJsonTarget = packageTarget.getPackageJson();
 
     if (packageJsonSelf !== undefined && packageJsonTarget !== undefined) {
-        Object.getOwnPropertyNames(
-            packageJsonSelf.devDependencies || {}
-        ).forEach((name) => {
-            const present =
-                packageJsonTarget.devDependencies[name] !== undefined;
+        Object.getOwnPropertyNames(packageJsonSelf.devDependencies || {}).forEach((name) => {
+            const present = packageJsonTarget.devDependencies[name] !== undefined;
             // only update if already present
             // this allows deletion of unused packages
             if (present) {
-                packageJsonTarget.devDependencies[name] =
-                    packageJsonSelf.devDependencies[name];
+                packageJsonTarget.devDependencies[name] = packageJsonSelf.devDependencies[name];
             }
         });
 
         // simply overwrite these scripts if present
-        const scripts = [
-            "test",
-            "clean",
-            "prettier",
-            "eslint",
-            "eslint-fix",
-            "prepack",
-            "build",
-        ];
+        const scripts = ["test", "clean", "prettier", "eslint", "eslint-fix", "prepack", "build"];
         scripts.forEach((name) => {
             const present = packageJsonTarget.scripts[name] !== undefined;
             // only update if already present
@@ -430,11 +401,7 @@ function updatePackage(packageSelf: PackageItems, packageTarget: PackageItems) {
     //
 
     // overwrite specific settings.json if present
-    const settings = [
-        "prettier.configPath",
-        "eslint.options",
-        "markdownlint.config",
-    ];
+    const settings = ["prettier.configPath", "eslint.options", "markdownlint.config"];
 
     const settingsJsonSelf = packageSelf.getSettingsJson();
     const settingsJsonTarget = packageTarget.getSettingsJson();
@@ -466,9 +433,7 @@ function addStyle(packageSource: PackageItems, packageTarget: PackageItems) {
     ]);
 
     // copy over package.json devDependencies
-    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", [
-        "prettier",
-    ]);
+    packageTarget.addPackageJsonFieldValues(packageSource, "devDependencies", ["prettier"]);
 
     // copy over config
     packageTarget.addConfigFile(packageSource, "prettier.json");
@@ -512,9 +477,7 @@ function addLint(packageSource: PackageItems, packageTarget: PackageItems) {
  */
 function addClean(packageSource: PackageItems, packageTarget: PackageItems) {
     // copy over package.json scripts
-    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", [
-        "clean",
-    ]);
+    packageTarget.addPackageJsonFieldValues(packageSource, "scripts", ["clean"]);
 
     // copy over script
     packageTarget.addScripts(packageSource, ["clean.js"]);
