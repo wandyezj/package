@@ -213,6 +213,15 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 // prettier-ignore
 ```
 
+## prettier settings
+
+- `"printWidth":100`
+    - Prettier's built in setting of printWidth:80 wraps more than needed for readability.
+- `"tabWidth": 4`
+    - Spaces have consistent spacing across editors compare to tabs. Four spaces of indentation highlights potentially too deep nesting.
+- `"endOfLine":"lf"`
+    - Unix line ending are preferred.
+
 ## eslint rules
 
 - https://eslint.org/docs/rules/eqeqeq
