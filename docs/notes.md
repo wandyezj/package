@@ -9,6 +9,17 @@ Designed for TypeScript NPM libraries.
 - document
 - publish
 
+## Overview
+
+- [Package Layout](#package-layout)
+- [Standard Technologies](#standard-technologies)
+    - [Tools](#tools)
+    - [Libraries](#libraries)
+    - [Visual Studio Code Extensions](#visual-studio-code-extensions)
+- [Technology Choice](#technology-choice)
+- [eslint disables](#eslint-disables)
+- [prettier disables](#prettier-disables)
+
 ## Package Layout
 
 - config
@@ -130,6 +141,7 @@ Libraries for solving common problems
 ### Visual Studio Code Extensions
 
 - ESLint
+    - id: `dbaeumer.vscode-eslint`
     - config: `config\eslint.json`
     - requires command line option `--config`
     - requires .vscode\settings.json `"eslint.options": { "configFile": "config/eslint.json", "resolvePluginsRelativeTo": "${workspaceFolder}" },`
@@ -138,8 +150,12 @@ Libraries for solving common problems
     - requires command line option `--config`
     - requires .vscode\settings.json `"prettier.configPath": "config/prettier.json",`
 - markdownlint
+    - id: `DavidAnson.vscode-markdownlint`
     - config: `config\.markdownlint.json`
     - requires .vscode\settings.json `"markdownlint.config": { "extends": "./config/.markdownlint.json" },`
+- Code Spell Checker
+    - id: `streetsidesoftware.code-spell-checker`
+    - config: `.vscode\settings.json` add additional words `cSpell.words`
 
 ## Technology and Design Considerations
 
