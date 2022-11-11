@@ -76,7 +76,7 @@ separate command because test-coverage can take longer to run than simply runnin
 
 ### style
 
-applys consistent formatting in src and test
+applies consistent formatting in src and test
 
 ### lint
 
@@ -149,12 +149,19 @@ Libraries for solving common problems
 
 ### Visual Studio Code Extensions
 
+<!-- 
+cSpell:ignoreRegExp dbaeumer 
+cSpell:ignoreRegExp esbenp 
+cSpell:ignoreRegExp DavidAnson 
+-->
+
 - ESLint
     - id: `dbaeumer.vscode-eslint`
     - config: `config\eslint.json`
     - requires command line option `--config`
     - requires .vscode\settings.json `"eslint.options": { "configFile": "config/eslint.json", "resolvePluginsRelativeTo": "${workspaceFolder}" },`
 - Prettier
+    - id: `esbenp.prettier-vscode`
     - config: `config\prettier.json`
     - requires command line option `--config`
     - requires .vscode\settings.json `"prettier.configPath": "config/prettier.json",`
@@ -204,7 +211,7 @@ The npm example highlights the importance of versioning tools together.
 
 npm looks first in the node_modules directory for the tool. Then it looks in the global installs before falling back to the path.
 
-In order to require that only the tools specified as part of the package be run it's important to use the specific path `./node_modules/.bin` https://github.com/npm/cli/issues/2638
+In order to require that only the tools specified as part of the package be run it's important to use the specific path `./node_modules/.bin` [See GitHub issue](https://github.com/npm/cli/issues/2638)
 
 Benefits:
 
@@ -249,7 +256,7 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 
 ## eslint rules
 
-- https://eslint.org/docs/rules/eqeqeq
+- [eqeqeq](https://eslint.org/docs/rules/eqeqeq)
     - `==` double equals leads to bugs, double equals is usually a mistake.
 
 ## TS Doc
@@ -261,13 +268,13 @@ Windows cmd does not need the extension on the tool to work. `cmd.exe` has a pre
 
 --testNamePattern
 
-> npm run test -t testname*
+> npm run test -t name*
 
 ## Technology Choice
 
 ### GitHub Actions
 
-Make sure the operating system and the node version used in GitHub Actions matchs those used on the development machine.
+Make sure the operating system and the node version used in GitHub Actions matches those used on the development machine.
 
 ### Source Control
 
@@ -283,7 +290,6 @@ Strong Types aid development.
 
 An alternative to TypeScript is [JSDOC](https://jsdoc.app/) tags.
 
-
 ## GitHub
 
 - [.github/CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
@@ -293,7 +299,7 @@ An alternative to TypeScript is [JSDOC](https://jsdoc.app/) tags.
 
 Ubuntu
 
-Node currently (2022-03-01) has significantly better performance on Linux than on Windows. This results in faster job exection time, and thus reduced cost, and wait time for GitHub Action pipelines.
+Node currently (2022-03-01) has significantly better performance on Linux than on Windows. This results in faster job execution time, and thus reduced cost, and wait time for GitHub Action pipelines.
 
 Ubuntu is a ubiquitous distribution and available as a build pool, and in WSL.
 
@@ -374,7 +380,6 @@ fs.cpSync(from, to);
 ### shelljs
 
 Unneeded, use built in node 'child_process' functions.
-
 
 ### fetch
 

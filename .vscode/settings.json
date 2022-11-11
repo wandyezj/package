@@ -6,13 +6,13 @@
     "files.associations": { "*.json": "jsonc" },
 
     "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs":"active",
+    "editor.guides.bracketPairs": "active",
 
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -24,8 +24,9 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 
-
     "prettier.configPath": "config/prettier.json",
+
+    "editor.formatOnSave": true,
 
     "eslint.options": {
         "configFile": "config/eslint.json",
@@ -35,12 +36,6 @@
     "markdownlint.config": {
         "extends": "./config/markdownlint.json"
     },
-
-    "cSpell.words": [
-        "linebreak",
-        "markdownlint",
-        "prettierrc"
-    ],
 
     "files.exclude": {
         "node_modules": true
