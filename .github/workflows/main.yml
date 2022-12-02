@@ -51,7 +51,7 @@ jobs:
     - name: clean
       run: npm run clean --if-present
 
-    - name: style-check
+    - name: style
       run: npm run style-check --if-present
 
     - name: lint
