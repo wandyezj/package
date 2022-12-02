@@ -9,12 +9,12 @@
         "dist/*"
     ],
     "engines": {
-        "node": ">=16.16",
-        "npm": ">=8.15"
+        "node": ">=18.12",
+        "npm": ">=8.19"
     },
     "scripts": {
         "prepack": "npm run build && npm run doc && npm run test",
-        "build": "npm run style && npm run lint && npm run clean && npm run compile",
+        "build": "npm run clean && npm run style && npm run lint && npm run compile",
         "doc": "npm run doc-extract && npm run doc-document",
         "test": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js",
         "test-coverage": "./node_modules/.bin/jest --no-cache --config ./config/jest.config.js --coverage",
@@ -27,7 +27,7 @@
         "api-extractor": "./node_modules/.bin/api-extractor",
         "doc-extract": "./node_modules/.bin/api-extractor run --local --verbose",
         "doc-document": "./node_modules/.bin/api-documenter markdown --input-folder ./temp --output-folder ./doc",
-        "check": "./node_modules/.bin/ts-node scripts/check.ts",
+        "check-package": "./node_modules/.bin/ts-node scripts/check-package.ts",
         "check-install": "./node_modules/.bin/ts-node scripts/check-install.ts",
         "check-environment": "./node_modules/.bin/ts-node scripts/check-environment.ts",
         "package-update": "./node_modules/.bin/ts-node scripts/update.ts",
@@ -58,7 +58,7 @@
         "prettier": "^2.7.1",
         "ts-jest": "^28.0.5",
         "ts-node": "^10.8.1",
-        "@types/node": "^16.11.7",
+        "@types/node": "^18.11.9",
         "typescript": "^4.8.4"
     }
 }

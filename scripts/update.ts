@@ -1,5 +1,7 @@
 /*
-Automatically update an existing package to latest
+Update an existing package
+
+Usage: npm run update [package to update root path]
 
 Point to package.json
 */
@@ -7,46 +9,6 @@ Point to package.json
 import * as fs from "fs";
 import prettier from "prettier";
 import * as path from "path";
-
-/**
- * class to describe a NPM package
- */
-class Package {
-    readonly packageJsonPath: string;
-    packageJson: PackageJson;
-
-    readonly directoryScripts: string;
-    readonly fileScriptClean: string;
-
-    readonly extensionsJsonPath: string;
-    /**
-     * .vscode/extension.json
-     * undefined if not present
-     */
-    readonly extensionsJson: undefined | ExtensionsJson;
-
-    constructor(public readonly directoryRoot: string) {
-        this.packageJsonPath = path.join(this.directoryRoot, "package.json");
-        if (!fileExists(this.packageJsonPath)) {
-            throw new Error(`package.json not found: ${this.packageJsonPath}`);
-        }
-
-        this.packageJson = readJsonFile<PackageJson>(this.packageJsonPath);
-
-        this.directoryScripts = path.join(directoryRoot, "scripts");
-        this.fileScriptClean = path.join(this.directoryScripts, "clean.js");
-
-        this.extensionsJsonPath = path.join(this.directoryRoot, ".vscode", "extensions.json");
-        if (fileExists(this.extensionsJsonPath)) {
-            this.extensionsJson = readJsonFile<ExtensionsJson>(this.extensionsJsonPath);
-        }
-    }
-
-    packageJsonScripts(): string[] {
-        const packageScripts = Object.getOwnPropertyNames(this.packageJson.scripts);
-        return packageScripts;
-    }
-}
 
 /**
  * do all the automatic updates to a package
@@ -112,6 +74,46 @@ function writeFormattedJsonObject(object: unknown, filePath: string) {
 }
 
 update();
+
+/**
+ * class to describe a NPM package
+ */
+class Package {
+    readonly packageJsonPath: string;
+    packageJson: PackageJson;
+
+    readonly directoryScripts: string;
+    readonly fileScriptClean: string;
+
+    readonly extensionsJsonPath: string;
+    /**
+     * .vscode/extension.json
+     * undefined if not present
+     */
+    readonly extensionsJson: undefined | ExtensionsJson;
+
+    constructor(public readonly directoryRoot: string) {
+        this.packageJsonPath = path.join(this.directoryRoot, "package.json");
+        if (!fileExists(this.packageJsonPath)) {
+            throw new Error(`package.json not found: ${this.packageJsonPath}`);
+        }
+
+        this.packageJson = readJsonFile<PackageJson>(this.packageJsonPath);
+
+        this.directoryScripts = path.join(directoryRoot, "scripts");
+        this.fileScriptClean = path.join(this.directoryScripts, "clean.js");
+
+        this.extensionsJsonPath = path.join(this.directoryRoot, ".vscode", "extensions.json");
+        if (fileExists(this.extensionsJsonPath)) {
+            this.extensionsJson = readJsonFile<ExtensionsJson>(this.extensionsJsonPath);
+        }
+    }
+
+    packageJsonScripts(): string[] {
+        const packageScripts = Object.getOwnPropertyNames(this.packageJson.scripts);
+        return packageScripts;
+    }
+}
 
 function doScriptInventory(targetPackage: Package, ownPackage: Package) {
     const ownPackageScripts = ownPackage.packageJsonScripts();

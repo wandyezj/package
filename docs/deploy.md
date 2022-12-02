@@ -24,7 +24,7 @@
 
     > npm publish
 
-    - if you get `Unable to authenticate` have a .npmrc file to connect to Azure DevOps, run the following:
+    - if you get `Unable to authenticate` and have a .npmrc file that points to an Azure DevOps registry, run the following:
         > npx vsts-npm-auth -F -C .npmrc
 
 1. commit

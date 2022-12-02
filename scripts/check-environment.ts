@@ -2,7 +2,7 @@
 
 Check Environment
 
-Log 
+Log
 
 - environment variables
 
@@ -60,9 +60,9 @@ function getEnvironmentVariables(): Environment {
 function checkEnvironment(): void {
     console.log("Check Environment");
     const variables = getEnvironmentVariables();
-    console.log("\n\n");
+    console.log("");
     console.log(variables);
-    console.log("\n\n");
+    console.log("");
 
     [`npm --version`, `node --version`].forEach((command) => {
         const data = execSync(command, {
@@ -74,8 +74,9 @@ function checkEnvironment(): void {
             stdio: ["ignore", "pipe", "ignore"],
         });
 
-        console.log(data);
-        console.log("\n\n");
+        console.log(command);
+        console.log(data.trim());
+        console.log("");
     });
 }
 
