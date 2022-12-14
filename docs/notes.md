@@ -19,6 +19,7 @@ Designed for TypeScript NPM libraries.
 - [Technology Choice](#technology-choice)
 - [eslint disables](#eslint-disables)
 - [prettier disables](#prettier-disables)
+- [Unit Test Debugging in VS Code](#unit-test-debugging-in-vs-code)
 
 ## Package Layout
 
@@ -165,6 +166,15 @@ Libraries for solving common problems
 - Code Spell Checker
     - id: `streetsidesoftware.code-spell-checker`
     - config: `.vscode\settings.json` add additional words `cSpell.words`
+
+## Unit Test Debugging in VS Code
+
+1. Open in VS Code
+1. Select unit test file to debug
+1. Place a breakpoint on the test to debug
+1. Click `Run and Debug` (Ctrl + Shift + D) in VS Code
+1. Select the `Jest` Config
+1. Click  green arrow `Start Debugging` (F5)
 
 ## Technology and Design Considerations
 
