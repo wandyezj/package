@@ -14,42 +14,53 @@ on:
 
 jobs:
   build:
+    timeout-minutes: 10
     # Match Development Operating System
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+
+    # Setup
+    - uses: actions/checkout@v3
+
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         # Match Development Node Version
-        node-version: '16.x'
+        node-version: '18.x'
 
     # Tool Versions
     - name: Node Version
       run: node --version
+
     - name: NPM Version
       run: npm --version
 
-    - name: Clean Install
+    # Package Setup
+    - name: clean install
       run: npm ci
 
-    # Check Environment
-    - name: Check
+    # Check Setup
+    - name: check-environment
       env:
         BRANCH_NAME: ${{ github.ref }}
       run: npm run check-environment --if-present
 
-    # Check Code
-    # Style Check ensures that code is consistently styled
-    - name: Style Check
-      run: npm run style-check --if-present
-    - name: Lint Check
-      run: npm run lint --if-present
+    - name: check-tools
+      run: npm run check-tools --if-present
 
     # Build
-    - name: Clean
+    - name: clean
       run: npm run clean --if-present
-    - name: Compile
+
+    - name: style
+      run: npm run style-check --if-present
+
+    - name: lint
+      run: npm run lint --if-present
+
+    - name: compile
       run: npm run compile --if-present
-    - name: Test
+
+    # Test
+    - name: test
       run: npm test --if-present

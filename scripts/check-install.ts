@@ -62,9 +62,9 @@ interface RequiredVersionTool extends VersionRequired {
 const requiredVersionNode: RequiredVersionTool = {
     name: "node",
 
-    majorRequired: 16,
+    majorRequired: 18,
 
-    minorMinimum: 16,
+    minorMinimum: 12,
 
     revisionMinimum: 0,
 
@@ -92,7 +92,7 @@ const requiredVersionNpm: RequiredVersionTool = {
 
     majorRequired: 8,
 
-    minorMinimum: 11,
+    minorMinimum: 19,
 
     revisionMinimum: 0,
 
