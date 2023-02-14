@@ -230,6 +230,8 @@ Benefits:
 - Avoids cluttering the global namespace with tools.
 - Ensures that the same tool version is run for everyone across environments.
 
+However, for convenience, to work on Windows and Linux with the latest tool versions, the `./node_modules/.bin` is left off.
+
 ## Windows cmd search path
 
 Windows cmd does not need the extension on the tool to work. `cmd.exe` has a precedence list for executing items in the path without the extension's presence by looking for the command without the extension (i.e. hello will call hello.exe, hello.bat, hello.cmd, etc.. in that order as it searches the path).
