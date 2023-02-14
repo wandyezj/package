@@ -234,6 +234,20 @@ Benefits:
 
 Windows cmd does not need the extension on the tool to work. `cmd.exe` has a precedence list for executing items in the path without the extension's presence by looking for the command without the extension (i.e. hello will call hello.exe, hello.bat, hello.cmd, etc.. in that order as it searches the path).
 
+## jest commands
+
+run a specific jest file
+
+> npm run test -- `file`
+
+## jest coverage disables
+
+When Jest test coverage is enforced, the following will consider the next node covered.
+
+```typescript
+/* istanbul ignore next */
+```
+
 ## eslint disables
 
 [eslint disabling rules](https://eslint.org/docs/user-guide/configuring/rules#disabling-rules)
