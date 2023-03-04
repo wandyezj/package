@@ -246,9 +246,18 @@ run a specific jest file
 
 When Jest test coverage is enforced, the following will consider the next node covered.
 
+ignore next node
+
 ```typescript
 /* istanbul ignore next */
 ```
+
+ignore file
+
+```typescript
+/* istanbul ignore file */
+```
+
 
 ## eslint disables
 
