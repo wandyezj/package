@@ -3,6 +3,7 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "davidanson.vscode-markdownlint",
+        "bierner.github-markdown-preview",
         "streetsidesoftware.code-spell-checker"
     ]
 }
