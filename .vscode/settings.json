@@ -36,7 +36,7 @@
     },
 
     "markdownlint.config": {
-        "extends": "./config/markdownlint.json"
+        "extends": "./config/markdownlint.jsonc"
     },
 
     "files.exclude": {
