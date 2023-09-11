@@ -10,10 +10,10 @@ A template for TypeScript NPM libraries with standard technologies to handle com
 
 [changelog](./CHANGELOG.md)
 
-[about](./documentation/about.md)
+[about](./docs/about.md)
 
-[setup](./documentation/setup.md)
+[setup](./docs/setup.md)
 
-[deploy](./documentation/deploy.md)
+[deploy](./docs/deploy.md)
 
-[notes](./documentation/notes.md)
+[notes](./docs/notes.md)
