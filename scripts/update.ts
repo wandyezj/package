@@ -136,6 +136,7 @@ function doScriptInventory(targetPackage: Package, ownPackage: Package) {
 
 function updateVscodeExtensionRecommendations(targetPackage: Package) {
     if (targetPackage.extensionsJson !== undefined) {
+        // cspell:ignore coenraads
         const obsoleteName = "coenraads.bracket-pair-colorizer";
         targetPackage.extensionsJson.recommendations =
             targetPackage.extensionsJson.recommendations.filter((name) => name !== obsoleteName);

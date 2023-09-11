@@ -61,6 +61,9 @@ jobs:
     - name: compile
       run: npm run compile --if-present
 
+    - name: spell-check
+      run: npm run spell-check --if-present
+
     # Test
     - name: test
       run: npm test --if-present

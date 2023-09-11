@@ -14,12 +14,13 @@
     },
     "scripts": {
         "prepack": "npm run build && npm run doc && npm run test",
-        "build": "npm run clean && npm run style && npm run lint && npm run compile",
+        "build": "npm run clean && npm run style && npm run spell-check && npm run lint && npm run compile",
         "doc": "npm run doc-extract && npm run doc-document",
         "test": "jest --no-cache --config ./config/jest.config.js",
         "test-coverage": "jest --no-cache --config ./config/jest.config.js --coverage",
         "style": "prettier --config ./config/prettier.json  --write \"@(src|test|scripts)/**/*.@(ts|js|md|html|css|json)\"",
-        "style-check": "prettier --config ./config/prettier.json  --check \"@(src|test)/**/*.@(ts|js|md|html|css|json)\"",
+        "style-check": "prettier --config ./config/prettier.json  --check \"@(src|test|scripts)/**/*.@(ts|js|md|html|css|json)\"",
+        "spell-check": "cspell --config ./.vscode/cspell.json --gitignore \"@(src|test|scripts)/**/*.@(ts|js|md|html|css|json)\"",
         "lint": "eslint --config ./config/eslint.json --no-eslintrc \"@(src|test|scripts)/**/*.@(ts|js)\"",
         "lint-fix": "eslint --config ./config/eslint.json --no-eslintrc --fix \"@(src|test|scripts)/**/*.@(ts|js)\"",
         "clean": "node ./scripts/clean.js dist && node ./scripts/clean.js temp",
@@ -46,19 +47,19 @@
         "url": "https://github.com/wandyezj/package/issues"
     },
     "homepage": "https://github.com/wandyezj/package#readme",
-    "dependencies": {},
     "devDependencies": {
         "@microsoft/api-documenter": "^7.21.5",
         "@microsoft/api-extractor": "^7.34.4",
         "@types/jest": "^29.4.0",
+        "@types/node": "^18.13.0",
         "@typescript-eslint/eslint-plugin": "^5.52.0",
         "@typescript-eslint/parser": "^5.52.0",
+        "cspell": "^7.3.5",
         "eslint": "^8.34.0",
         "jest": "^29.4.2",
         "prettier": "^2.8.4",
         "ts-jest": "^29.0.5",
         "ts-node": "^10.9.1",
-        "@types/node": "^18.13.0",
         "typescript": "^4.9.5"
     }
 }
