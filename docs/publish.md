@@ -28,9 +28,12 @@
         > npm install -g vsts-npm-auth
         > npx vsts-npm-auth -F -C .npmrc
 
+    - _note_: generally it's preferable to publish through a pipeline where the deployment can be signed off.
+
 1. commit
 
     > git commit -am "new version"
 
 1. push
+
     > git push
