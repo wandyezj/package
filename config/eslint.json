@@ -13,7 +13,6 @@
     "plugins": ["@typescript-eslint"],
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "rules": {
-
         // https://eslint.org/docs/latest/rules/eqeqeq
         // poka-yoke
         "eqeqeq": ["error", "always"],
@@ -24,11 +23,7 @@
 
         // https://eslint.org/docs/latest/rules/quotes
         // consistency
-        "quotes": [
-            "warn",
-            "double",
-            { "allowTemplateLiterals": true, "avoidEscape": true }
-        ],
+        "quotes": ["warn", "double", { "allowTemplateLiterals": true, "avoidEscape": true }],
 
         // https://eslint.org/docs/latest/rules/semi
         // poka-yoke
@@ -58,19 +53,27 @@
                 "trailingUnderscore": "forbid"
             },
             {
-                "selector": "enumMember",
+                "selector": ["variable"],
+                "modifiers": ["const"],
+                "format": ["strictCamelCase" /*, "UPPER_CASE" */],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "selector": ["enumMember"],
                 "format": ["PascalCase"],
                 "leadingUnderscore": "forbid",
                 "trailingUnderscore": "forbid"
             },
             {
                 "selector": ["typeLike"],
-                "format": ["PascalCase"]
+                "format": ["StrictPascalCase"]
             },
             {
                 "selector": ["interface"],
-                "format": ["PascalCase"],
+                "format": ["StrictPascalCase"],
                 "custom": {
+                    // Interface names must NOT be prefixed with I
                     "regex": "^I[A-Z]",
                     "match": false
                 }
