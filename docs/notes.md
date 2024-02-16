@@ -504,10 +504,14 @@ fs.cpSync(from, to);
 Unneeded, use built in node 'child_process' functions.
 
 ```typescript
+// const {execSync} = require("child_process");
 import {execSync} from "child_process";
 
-const command = "npm run build";
-execSync(command);
+try {
+  execSync(commands, { encoding: 'utf-8', stdio: [0, 1, 2] });
+} catch (e) {
+  process.exit(e.status);
+}
 
 ```
 
