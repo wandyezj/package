@@ -26,6 +26,7 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
     - [Visual Studio Code Extensions](#visual-studio-code-extensions)
 - [Tool Notes](#tool-notes)
     - [GitHub](#github)
+    - [NVM](#nvm)
     - [NPM](#npm)
         - [NPM Commands](#npm-commands)
     - [Prettier](#prettier)
@@ -181,6 +182,7 @@ should be used to build everything and test the package.
 - [GitHub CLI](https://cli.github.com/manual/gh_help_reference)
 - [GitHub Actions](https://github.com/features/actions)
 - [Visual Studio Code](https://code.visualstudio.com/)
+- [nvm]https://github.com/coreybutler/nvm-windows)
 - [npm](https://www.npmjs.com/)
 - [node](https://nodejs.org/) [download node lts](https://nodejs.org/en/download/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -237,6 +239,17 @@ cSpell:ignore dbaeumer esbenp DavidAnson
     - config: `.vscode\settings.json` add additional words `cSpell.words`
 
 ## Tool Notes
+
+### NVM
+
+[NVM setup](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows#install-nvm-windows-nodejs-and-npm)
+
+NVM is used to deal with node versions.
+
+> nvm install lts
+
+> nvm use lts
+
 
 ### NPM
 
@@ -489,6 +502,14 @@ fs.cpSync(from, to);
 ### shelljs
 
 Unneeded, use built in node 'child_process' functions.
+
+```typescript
+import {execSync} from "child_process";
+
+const command = "npm run build";
+execSync(command);
+
+```
 
 ### fetch
 
