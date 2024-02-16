@@ -27,6 +27,8 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
 - [Tool Notes](#tool-notes)
     - [GitHub](#github)
     - [NVM](#nvm)
+    - [Node](#node)
+        - [Node Commands](#node-commands)
     - [NPM](#npm)
         - [NPM Commands](#npm-commands)
     - [Prettier](#prettier)
@@ -250,6 +252,13 @@ NVM is used to deal with node versions.
 
 > nvm use lts
 
+### Node
+
+#### Node Commands
+
+End all node processes:
+
+> taskkill /f /im node.exe
 
 ### NPM
 
