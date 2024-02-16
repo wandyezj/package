@@ -26,7 +26,7 @@ function formatText(
     parser: "json" | "typescript" | "markdown" | "babel",
     options?: {
         printWidth?: number;
-    }
+    },
 ): string {
     return prettier.format(text, {
         trailingComma: "es5",
@@ -45,7 +45,7 @@ export function formatJson(
     text: string,
     options?: {
         printWidth?: number;
-    }
+    },
 ): string {
     return formatText(text, "json", options);
 }
@@ -157,7 +157,7 @@ class PackageItems {
     addPackageJsonFieldValues(
         source: PackageItems,
         field: "scripts" | "devDependencies",
-        values: string[]
+        values: string[],
     ) {
         const packageJsonSource = source.getPackageJson();
 
@@ -298,7 +298,7 @@ function checkPrettierConfig(configPath: string): void {
         const actual = config[name];
         if (typeof value !== typeof actual || JSON.stringify(value) !== JSON.stringify(actual)) {
             console.log(
-                `   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`
+                `   WARNING: key: [${name}] expected [${value}] does not match actual [${actual}]`,
             );
         }
     });

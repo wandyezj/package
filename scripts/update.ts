@@ -213,7 +213,7 @@ function updateScriptClean(targetPackage: Package, ownPackage: Package) {
             // copy over clean.js
             const targetPackageScriptsCleanPath = path.join(
                 targetPackageScriptsDirectoryPath,
-                "clean.js"
+                "clean.js",
             );
             if (!fileExists(targetPackageScriptsCleanPath)) {
                 console.log("create package file: scripts/clean.js");
@@ -265,7 +265,7 @@ function formatText(
     parser: "json" | "typescript" | "markdown" | "babel",
     options?: {
         printWidth?: number;
-    }
+    },
 ): string {
     return prettier.format(text, {
         trailingComma: "es5",
@@ -284,7 +284,7 @@ export function formatJson(
     text: string,
     options?: {
         printWidth?: number;
-    }
+    },
 ): string {
     return formatText(text, "json", options);
 }

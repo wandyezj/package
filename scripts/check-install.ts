@@ -135,7 +135,7 @@ function getNumberFromGroup(
     groups: {
         [key: string]: string;
     },
-    name: string
+    name: string,
 ): number | undefined {
     const value = groups[name];
     if (value === undefined) {
