@@ -50,6 +50,7 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
     - [TypeScript](#typescript)
     - [Operating System](#operating-system)
     - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
+- [Useful Packages](#useful-packages)
 - [Comments on Common Packages](#comments-on-common-packages)
     - [express](#express)
     - [fs-extra](#fs-extra)
@@ -449,6 +450,14 @@ wls can be installed and used to run and install node.
 
 This can be used to run linux commands on Windows.
 
+## Useful Packages
+
+- [lz-string](https://www.npmjs.com/package/lz-string)
+    - compress and decompress strings
+- [marked](https://www.npmjs.com/package/marked)
+    - markdown parser
+- [Fluent UI](https://developer.microsoft.com/en-us/fluentui#/)
+    - React UI component library
 
 ## Comments on Common Packages
 
