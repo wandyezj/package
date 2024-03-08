@@ -2,6 +2,9 @@
     "files.eol": "\n",
     "editor.renderWhitespace": "all",
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": null
+    },
     "extensions.ignoreRecommendations": true,
     "files.associations": { "*.json": "jsonc" },
 
