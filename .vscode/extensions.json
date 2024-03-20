@@ -4,6 +4,7 @@
         "dbaeumer.vscode-eslint",
         "davidanson.vscode-markdownlint",
         "bierner.github-markdown-preview",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker",
+        "vscode-icons-team.vscode-icons"
     ]
 }
