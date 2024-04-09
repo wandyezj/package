@@ -5,6 +5,7 @@
         "davidanson.vscode-markdownlint",
         "bierner.github-markdown-preview",
         "streetsidesoftware.code-spell-checker",
-        "vscode-icons-team.vscode-icons"
+        "vscode-icons-team.vscode-icons",
+        "redhat.vscode-xml"
     ]
 }
