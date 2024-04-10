@@ -28,6 +28,7 @@
         "api-extractor": "api-extractor",
         "doc-extract": "api-extractor run --local --verbose",
         "doc-document": "api-documenter markdown --input-folder ./temp --output-folder ./doc",
+        "deploy-git-hooks": "node ./scripts/deploy-git-hooks.js",
         "check-package": "ts-node scripts/check-package.ts",
         "check-install": "ts-node scripts/check-install.ts",
         "check-environment": "ts-node scripts/check-environment.ts",
