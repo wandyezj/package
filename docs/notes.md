@@ -34,13 +34,14 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
     - [Prettier](#prettier)
         - [prettier disables](#prettier-disables)
         - [prettier settings](#prettier-settings)
-    - [eslint](#eslint)
-        - [eslint disables](#eslint-disables)
-        - [eslint rules](#eslint-rules)
+    - [cspell](#cspell)
     - [jest](#jest)
         - [jest commands](#jest-commands)
         - [jest coverage disables](#jest-coverage-disables)
         - [Jest run single or group of tests](#jest-run-single-or-group-of-tests)
+    - [eslint](#eslint)
+        - [eslint disables](#eslint-disables)
+        - [eslint rules](#eslint-rules)
     - [TS Doc](#ts-doc)
 - [Technology and Design Considerations](#technology-and-design-considerations)
 - [Technology Choice](#technology-choice)
@@ -63,7 +64,6 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
     - [NPM Version Issues](#npm-version-issues)
     - [NPM Script Search Path](#npm-script-search-path)
     - [Windows cmd search path](#windows-cmd-search-path)
-
 
 ## Package Layout
 
@@ -185,7 +185,7 @@ should be used to build everything and test the package.
 - [GitHub CLI](https://cli.github.com/manual/gh_help_reference)
 - [GitHub Actions](https://github.com/features/actions)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [nvm]https://github.com/coreybutler/nvm-windows)
+- [nvm]<https://github.com/coreybutler/nvm-windows>)
 - [npm](https://www.npmjs.com/)
 - [node](https://nodejs.org/) [download node lts](https://nodejs.org/en/download/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -289,6 +289,16 @@ Show all published versions of a package.
 - `"endOfLine":"lf"`
     - Unix line ending are preferred.
 
+### cspell
+
+Ignore a specific word in a file.
+
+```javascript
+// cspell:ignore wordToIgnore
+```
+
+[cspell Inline Document Settings](https://cspell.org/configuration/document-settings/#inline-document-settings)
+
 ### Jest
 
 #### jest commands
@@ -333,7 +343,6 @@ ignore file
 // eslint-disable-line @typescript-eslint/triple-slash-reference
 ```
 
-
 #### eslint rules
 
 - [eqeqeq](https://eslint.org/docs/rules/eqeqeq)
@@ -357,7 +366,6 @@ ignore file
 1. Click `Run and Debug` (Ctrl + Shift + D) in VS Code
 1. Select the `Jest` Config
 1. Click  green arrow `Start Debugging` (F5)
-
 
 ## Features
 
