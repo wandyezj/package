@@ -35,6 +35,7 @@ Designed for developing TypeScript NPM libraries. The layout can be applied to o
         - [prettier disables](#prettier-disables)
         - [prettier settings](#prettier-settings)
     - [cspell](#cspell)
+    - [Playwright](#playwright)
     - [jest](#jest)
         - [jest commands](#jest-commands)
         - [jest coverage disables](#jest-coverage-disables)
@@ -190,6 +191,7 @@ should be used to build everything and test the package.
 - [node](https://nodejs.org/) [download node lts](https://nodejs.org/en/download/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [jest](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)
 - [prettier](https://prettier.io/)
 - [eslint](https://eslint.org/)
 - [api-extractor](https://api-extractor.com/)
@@ -240,6 +242,9 @@ cSpell:ignore dbaeumer esbenp DavidAnson
 - Code Spell Checker
     - id: `streetsidesoftware.code-spell-checker`
     - config: `.vscode\settings.json` add additional words `cSpell.words`
+- Playwright
+    - id: `ms-playwright.playwright`
+    - config: `config\playwright.config.ts`
 
 ## Tool Notes
 
@@ -298,6 +303,8 @@ Ignore a specific word in a file.
 ```
 
 [cspell Inline Document Settings](https://cspell.org/configuration/document-settings/#inline-document-settings)
+
+### Playwright
 
 ### Jest
 
