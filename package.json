@@ -33,6 +33,10 @@
         "check-install": "ts-node scripts/check-install.ts",
         "check-environment": "ts-node scripts/check-environment.ts",
         "package-update": "ts-node scripts/update.ts",
+        "playwright": "npm run playwright-install && npm run playwright-test",
+        "playwright-install": "playwright install --with-deps chromium",
+        "playwright-test": "playwright test --config ./config/playwright.config.ts",
+        "playwright-report": "playwright show-report",
         "start": "ts-node test/main.ts"
     },
     "repository": {
@@ -62,5 +66,9 @@
         "ts-jest": "29.0.5",
         "ts-node": "10.9.1",
         "typescript": "5.3.3"
+    },
+    "dependencies": {
+        "@playwright/test": "^1.45.0",
+        "playwright": "^1.45.0"
     }
 }
