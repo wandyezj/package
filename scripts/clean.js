@@ -1,4 +1,3 @@
-/* eslint-env node */
 /* eslint @typescript-eslint/no-var-requires: "off" */
 
 // cross platform replacement for
